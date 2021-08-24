@@ -18,6 +18,6 @@ public class Deportivo extends Barco {
     }
 
     public double obtenerModulo(){
-        return this.obtenerModulo() + this.cv;
+        return super.obtenerModulo() + this.cv;
     }
 }

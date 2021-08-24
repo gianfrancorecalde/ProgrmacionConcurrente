@@ -6,7 +6,7 @@ public class Puerto {
     private  int[] colAmarre;
     private Lista colAlquileres;
     private int valorFijo = 200;
-    private static int tamanio = 10;
+    private static int tamanio = 3;
 
     public Puerto(){
         colAmarre = new int[tamanio];
@@ -28,5 +28,18 @@ public class Puerto {
         return this.valorFijo;
     }
 
+    public int getAmarre(int posicion){
+        return this.colAmarre[posicion];
+    }
 
+    public Lista getAlquileres(){
+        return this.colAlquileres;
+    }
+
+    public boolean agregarAlquiler(int nroAmarre, Barco unBarco, int unCliente, int cantDias){
+        Calendar today = new GregorianCalendar(2021, 8, 24);
+        long aux = today.getTimeInMillis();
+        Alquiler alq = new Alquiler(unCliente, unBarco, nroAmarre,today,today);
+        return colAlquileres.insertar(alq, colAlquileres.longitud()+1);
+    }
 }

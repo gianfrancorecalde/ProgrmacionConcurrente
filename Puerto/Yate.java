@@ -29,6 +29,6 @@ public class Yate extends Barco{
     }
 
     public double obtenerModulo(){
-        return this.obtenerModulo() + this.cv + this.nroCamarotes;
+        return super.obtenerModulo() + this.cv + this.nroCamarotes;
     }
 }

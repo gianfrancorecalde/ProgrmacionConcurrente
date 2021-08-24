@@ -1,5 +1,7 @@
 package ProgrmacionConcurrente.Puerto;
 
+import java.util.Calendar;
+
 public class Barco {
     
     private String matricula;
@@ -38,6 +40,14 @@ public class Barco {
 
     public double obtenerModulo(){
         return this.eslora*10;
+    }
+
+    public double calcularValor(Calendar fchaFin, Calendar fchaIni, int valorFijo){
+        long fin = fchaFin.getTimeInMillis();
+        long ini = fchaIni.getTimeInMillis();
+        int dias = (int)Math.abs(fin-ini)/(1000*60*60*24);
+        double costo = (dias*this.obtenerModulo())+valorFijo;
+        return costo;
     }
     
 }

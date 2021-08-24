@@ -11,13 +11,14 @@ public class Alquiler {
     private Calendar fchIni;
     private Calendar fchFinal;
 
-    public Alquiler(int cliente, Barco barco, int amarre, int diaInicial, int diaFinal, int mesInicial, int mesFinal, int anioIni, int anioFin){
+    public Alquiler(int  cliente, Barco barco, int amarre, Calendar fchIni, Calendar fchFin){
         this.cliente = cliente;
         this.barco = barco;
         this.amarre = amarre;
-        this.fchFinal = new GregorianCalendar(anioFin, mesFinal, diaFinal);
-        this.fchIni = new GregorianCalendar(anioIni, mesInicial, diaInicial);
+        this.fchFinal = fchFin;
+        this.fchIni = fchIni;
     }
+
 
     public int getCliente() {
         return cliente;
@@ -43,29 +44,22 @@ public class Alquiler {
         this.amarre = amarre;
     }
 
-    public Long getFchIni() {
-        return fchIni.getTimeInMillis();
+    public Calendar getFchIni() {
+        return this.fchIni;
     }
 
     public void setFchIni(int diaIni, int mesIni, int anioIni) {
         this.fchIni.set(anioIni, mesIni, diaIni);
     }
 
-    public Long getFchFinal() {
-        return fchFinal.getTimeInMillis();
+    public Calendar getFchFinal() {
+        return this.fchFinal;
     }
 
     public void setFchFinal(int diaFinal, int mesFinal, int anioFinal) {
         this.fchFinal.set(anioFinal, mesFinal, diaFinal);
     }
 
-    public double calcularValor(){
-        long fin = this.fchFinal.getTimeInMillis();
-        long ini = this.fchIni.getTimeInMillis();
-        int dias = (int)Math.abs(fin-ini)/(1000*60*60*24);
-        double costo = dias*this.barco.obtenerModulo();
-        return costo;
-    }
 
 
 }

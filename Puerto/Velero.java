@@ -20,6 +20,6 @@ public class Velero extends Barco {
     }
 
     public double obtenerModulo(){
-        return this.obtenerModulo() + this.nroMastil;
+        return super.obtenerModulo() + this.nroMastil;
     }
 }
