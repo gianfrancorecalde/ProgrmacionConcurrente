@@ -15,6 +15,10 @@ public class Empresa {
         return this.colEmpleados;
     }
 
+    public Lista getinfoTitulos(){
+        return this.infoTitulos;
+    }
+
     public Lista empleadosMayoresA(){
         Lista colEmpleadosMayores = new Lista();
         if(!this.colEmpleados.esVacia()){
@@ -51,5 +55,19 @@ public class Empresa {
             }            
         }
         return colEmpleadosOrdenados;
+    }
+
+    public Lista cobroMensualEmpleado(){
+        Lista colCobros = new Lista();
+        if(!colEmpleados.esVacia()){
+            int i;
+            Empleado aux;
+            for(i=1;i<colEmpleados.longitud()+1; i++){
+                aux = (Empleado)colEmpleados.recuperar(i);
+                colCobros.insertar(aux, colCobros.longitud()+1);
+                colCobros.insertar(aux.calcularSalario(infoTitulos), colCobros.longitud()+1);
+            }
+        }
+        return colCobros;
     }
 }

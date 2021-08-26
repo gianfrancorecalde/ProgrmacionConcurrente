@@ -1,17 +1,19 @@
 package ProgrmacionConcurrente.Empresa;
 import java.util.*;
-public abstract class Empleado extends Persona {
+import ProgrmacionConcurrente.Lineales.Dinamicas.*;
+public  class Empleado extends Persona {
     
     private int legajo;
-    private int antiguedad;
-    private double salario;
+    private int porcentAntiguedad;
+    protected double salarioBase;
+    protected int cantHoras;
 
-    protected Empleado(double salario, String nombre, int dni, String direccion, Date fchaNacimiento, String sexo, int legajo, int antiguedad){
+    public Empleado(int cantHoras ,double salarioBase, String nombre, int dni, String direccion, Date fchaNacimiento, String sexo, int legajo, int porcentAntiguedad){
         super(nombre, dni,  direccion,fchaNacimiento, sexo);
         this.legajo = legajo;
-        this.antiguedad = antiguedad;
-        this.salario = salario;
-        
+        this.porcentAntiguedad = porcentAntiguedad;
+        this.salarioBase = salarioBase;
+        this.cantHoras = cantHoras;
     }
 
     public int getLegajo() {
@@ -19,26 +21,41 @@ public abstract class Empleado extends Persona {
     }
 
     public int getAntiguedad() {
-        return antiguedad;
+        return porcentAntiguedad;
+    }
+    public int getCantHoras() {
+        return cantHoras;
     }
 
-    public void setAntiguedad(int antiguedad) {
-        this.antiguedad = antiguedad;
+    public void setAntiguedad(int porcentAntiguedad) {
+        this.porcentAntiguedad = porcentAntiguedad;
+    }
+
+    public void setCantHoras(int cantHoras) {
+        this.cantHoras = cantHoras;
     }
 
     public boolean verificarAntiguedad(){
-        return this.antiguedad >10;
+        return this.porcentAntiguedad >10;
     }
 
     public String mostrarDatos(){
-        return super.mostrarDatos()+" Legajo: "+legajo+" Antiguedad: "+antiguedad;
+        return super.mostrarDatos()+" Legajo: "+legajo+" Porcentaje por Antiguedad: "+porcentAntiguedad+" Salario base: "+salarioBase+" Horas trabajadas: "+cantHoras;
     }
 
     public double getSalario(){
-        return salario;
+        return salarioBase;
     }
 
     public void setSalario(double newSalario){
-        this.salario = newSalario;
+        this.salarioBase = newSalario;
+    }
+
+    public double calcularSalario(Lista infoTitulos){
+        double salarioEmpleado = salarioBase+porcentAntiguedad;
+        if(cantHoras > 160){
+            salarioEmpleado += (salarioBase*0.95)*(cantHoras-160);
+        }
+        return salarioEmpleado;
     }
 }

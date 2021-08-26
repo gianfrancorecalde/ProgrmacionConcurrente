@@ -654,6 +654,198 @@
                 <mxCell id="LspWCPcuFfCpB5fYmq09-26" value="(legajoEmpleado &amp;lt; legajoY)" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;" vertex="1" parent="LmvPyFuXYSbYmxySzK6N-1">
                     <mxGeometry x="210" y="2619" width="160" height="20" as="geometry"/>
                 </mxCell>
+                <mxCell id="LspWCPcuFfCpB5fYmq09-28" value=":Empresa" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;collapsible=0;recursiveResize=0;outlineConnect=0;shadow=0;" vertex="1" parent="LmvPyFuXYSbYmxySzK6N-1">
+                    <mxGeometry x="150" y="2910" width="100" height="300" as="geometry"/>
+                </mxCell>
+                <mxCell id="LspWCPcuFfCpB5fYmq09-29" value="cobroMensualEmpleados()" style="html=1;verticalAlign=bottom;endArrow=block;" edge="1" parent="LmvPyFuXYSbYmxySzK6N-1">
+                    <mxGeometry width="80" relative="1" as="geometry">
+                        <mxPoint x="50" y="2980" as="sourcePoint"/>
+                        <mxPoint x="200" y="2980" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="LspWCPcuFfCpB5fYmq09-30" value="colCobros &amp;lt;-- {}" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;" vertex="1" parent="LmvPyFuXYSbYmxySzK6N-1">
+                    <mxGeometry x="200" y="2990" width="100" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="LspWCPcuFfCpB5fYmq09-31" value="" style="shape=curlyBracket;whiteSpace=wrap;html=1;rounded=1;shadow=0;fillColor=#FFFFFF;" vertex="1" parent="LmvPyFuXYSbYmxySzK6N-1">
+                    <mxGeometry x="175" y="3020" width="20" height="150" as="geometry"/>
+                </mxCell>
+                <mxCell id="LspWCPcuFfCpB5fYmq09-32" value="[para cada empleado&lt;br&gt;de colEmpleados]" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;" vertex="1" parent="LmvPyFuXYSbYmxySzK6N-1">
+                    <mxGeometry x="40" y="3065" width="130" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="LspWCPcuFfCpB5fYmq09-33" value="empleado:Empleado" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;collapsible=0;recursiveResize=0;outlineConnect=0;shadow=0;fillColor=#2A2A2A;" vertex="1" parent="LmvPyFuXYSbYmxySzK6N-1">
+                    <mxGeometry x="350" y="2910" width="100" height="300" as="geometry"/>
+                </mxCell>
+                <mxCell id="LspWCPcuFfCpB5fYmq09-34" value="calcularSalario(infoTitulos)" style="html=1;verticalAlign=bottom;endArrow=block;" edge="1" parent="LmvPyFuXYSbYmxySzK6N-1" source="LspWCPcuFfCpB5fYmq09-28" target="LspWCPcuFfCpB5fYmq09-33">
+                    <mxGeometry width="80" relative="1" as="geometry">
+                        <mxPoint x="220" y="3040" as="sourcePoint"/>
+                        <mxPoint x="300" y="3040" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="LspWCPcuFfCpB5fYmq09-35" value="salarioEmpleado" style="html=1;verticalAlign=bottom;endArrow=open;dashed=1;endSize=8;" edge="1" parent="LmvPyFuXYSbYmxySzK6N-1" source="LspWCPcuFfCpB5fYmq09-33" target="LspWCPcuFfCpB5fYmq09-28">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="400" y="3090" as="sourcePoint"/>
+                        <mxPoint x="240" y="3090" as="targetPoint"/>
+                        <Array as="points">
+                            <mxPoint x="340" y="3090"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="LspWCPcuFfCpB5fYmq09-36" value="colCobros &amp;lt;-- colCobros + empleado" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;" vertex="1" parent="LmvPyFuXYSbYmxySzK6N-1">
+                    <mxGeometry x="200" y="3110" width="210" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="LspWCPcuFfCpB5fYmq09-37" value="colCobros &amp;lt;-- colCobros + salarioEmpleado" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;" vertex="1" parent="LmvPyFuXYSbYmxySzK6N-1">
+                    <mxGeometry x="200" y="3130" width="250" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="LspWCPcuFfCpB5fYmq09-38" value="colSalario" style="html=1;verticalAlign=bottom;endArrow=open;dashed=1;endSize=8;" edge="1" parent="LmvPyFuXYSbYmxySzK6N-1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="200" y="3200" as="sourcePoint"/>
+                        <mxPoint x="50" y="3200" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="LspWCPcuFfCpB5fYmq09-39" value=":Empleado" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;collapsible=0;recursiveResize=0;outlineConnect=0;shadow=0;fillColor=#2A2A2A;" vertex="1" parent="LmvPyFuXYSbYmxySzK6N-1">
+                    <mxGeometry x="150" y="3240" width="100" height="240" as="geometry"/>
+                </mxCell>
+                <mxCell id="LspWCPcuFfCpB5fYmq09-40" value="calcularSalario(infoTitulos)" style="html=1;verticalAlign=bottom;endArrow=block;" edge="1" parent="LmvPyFuXYSbYmxySzK6N-1">
+                    <mxGeometry width="80" relative="1" as="geometry">
+                        <mxPoint x="50" y="3320" as="sourcePoint"/>
+                        <mxPoint x="200" y="3320" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="LspWCPcuFfCpB5fYmq09-41" value="salarioEmpleado &amp;lt;-- salarioEmpleado + ((salarioBase*0.95)*(cantHoras-160))" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;" vertex="1" parent="LmvPyFuXYSbYmxySzK6N-1">
+                    <mxGeometry x="215" y="3390" width="430" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="LspWCPcuFfCpB5fYmq09-42" value="salarioEmpleado" style="html=1;verticalAlign=bottom;endArrow=open;dashed=1;endSize=8;" edge="1" parent="LmvPyFuXYSbYmxySzK6N-1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="200" y="3470" as="sourcePoint"/>
+                        <mxPoint x="40" y="3470" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="LspWCPcuFfCpB5fYmq09-43" value=":Administrativo" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;collapsible=0;recursiveResize=0;outlineConnect=0;shadow=0;fillColor=#2A2A2A;" vertex="1" parent="LmvPyFuXYSbYmxySzK6N-1">
+                    <mxGeometry x="150" y="3507" width="100" height="243" as="geometry"/>
+                </mxCell>
+                <mxCell id="LspWCPcuFfCpB5fYmq09-44" value="calcularSalario(infoTitulos)" style="html=1;verticalAlign=bottom;endArrow=block;" edge="1" parent="LmvPyFuXYSbYmxySzK6N-1">
+                    <mxGeometry width="80" relative="1" as="geometry">
+                        <mxPoint x="60" y="3590" as="sourcePoint"/>
+                        <mxPoint x="200" y="3590" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="LspWCPcuFfCpB5fYmq09-45" value="Si ( cantHoras &amp;gt; 160 )" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;" vertex="1" parent="LmvPyFuXYSbYmxySzK6N-1">
+                    <mxGeometry x="200" y="3370" width="130" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="LspWCPcuFfCpB5fYmq09-47" value="salarioEmpleado &amp;lt;-- salarioBase + porcentAntiguedad" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;" vertex="1" parent="LmvPyFuXYSbYmxySzK6N-1">
+                    <mxGeometry x="200" y="3330" width="300" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="LspWCPcuFfCpB5fYmq09-49" value="super&amp;nbsp;&lt;span style=&quot;text-align: center&quot;&gt;calcularSalario(infoTitulos)&lt;/span&gt;" style="edgeStyle=orthogonalEdgeStyle;html=1;align=left;spacingLeft=2;endArrow=block;rounded=0;entryX=1;entryY=0;" edge="1" parent="LmvPyFuXYSbYmxySzK6N-1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="200" y="3610" as="sourcePoint"/>
+                        <Array as="points">
+                            <mxPoint x="230" y="3610"/>
+                        </Array>
+                        <mxPoint x="205" y="3630" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="LspWCPcuFfCpB5fYmq09-50" value="salarioEmpleado" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;" vertex="1" parent="LmvPyFuXYSbYmxySzK6N-1">
+                    <mxGeometry x="200" y="3640" width="100" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="LspWCPcuFfCpB5fYmq09-51" value="salarioEmpleado &amp;lt;-- salarioEmpleado + adPorCategoria + (salarioBase*0.9)" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;" vertex="1" parent="LmvPyFuXYSbYmxySzK6N-1">
+                    <mxGeometry x="200" y="3680" width="420" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="LspWCPcuFfCpB5fYmq09-52" value="salarioEmpleado" style="html=1;verticalAlign=bottom;endArrow=open;dashed=1;endSize=8;" edge="1" parent="LmvPyFuXYSbYmxySzK6N-1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="200" y="3730" as="sourcePoint"/>
+                        <mxPoint x="60" y="3730" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="LspWCPcuFfCpB5fYmq09-53" value=":Tecnico" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;collapsible=0;recursiveResize=0;outlineConnect=0;shadow=0;fillColor=#2A2A2A;" vertex="1" parent="LmvPyFuXYSbYmxySzK6N-1">
+                    <mxGeometry x="830" y="3507" width="100" height="413" as="geometry"/>
+                </mxCell>
+                <mxCell id="LspWCPcuFfCpB5fYmq09-54" value="calcularSalario(infoTitulos)" style="html=1;verticalAlign=bottom;endArrow=block;" edge="1" parent="LmvPyFuXYSbYmxySzK6N-1">
+                    <mxGeometry width="80" relative="1" as="geometry">
+                        <mxPoint x="740" y="3590" as="sourcePoint"/>
+                        <mxPoint x="880" y="3590" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="LspWCPcuFfCpB5fYmq09-55" value="super&amp;nbsp;&lt;span style=&quot;text-align: center&quot;&gt;calcularSalario(infoTitulos)&lt;/span&gt;" style="edgeStyle=orthogonalEdgeStyle;html=1;align=left;spacingLeft=2;endArrow=block;rounded=0;entryX=1;entryY=0;" edge="1" parent="LmvPyFuXYSbYmxySzK6N-1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="880" y="3610" as="sourcePoint"/>
+                        <Array as="points">
+                            <mxPoint x="910" y="3610"/>
+                        </Array>
+                        <mxPoint x="885" y="3630" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="LspWCPcuFfCpB5fYmq09-56" value="salarioEmpleado" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;" vertex="1" parent="LmvPyFuXYSbYmxySzK6N-1">
+                    <mxGeometry x="880" y="3640" width="100" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="LspWCPcuFfCpB5fYmq09-57" value="salarioEmpleado &amp;lt;-- salarioEmpleado + adicional" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;" vertex="1" parent="LmvPyFuXYSbYmxySzK6N-1">
+                    <mxGeometry x="880" y="3740" width="280" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="LspWCPcuFfCpB5fYmq09-58" value="salarioEmpleado" style="html=1;verticalAlign=bottom;endArrow=open;dashed=1;endSize=8;" edge="1" parent="LmvPyFuXYSbYmxySzK6N-1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="880" y="3900" as="sourcePoint"/>
+                        <mxPoint x="740" y="3900" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="LspWCPcuFfCpB5fYmq09-65" value="obtenerAdcicionalPortitulo(infoTitulos)" style="edgeStyle=orthogonalEdgeStyle;html=1;align=left;spacingLeft=2;endArrow=block;rounded=0;entryX=1;entryY=0;" edge="1" parent="LmvPyFuXYSbYmxySzK6N-1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="880" y="3680" as="sourcePoint"/>
+                        <Array as="points">
+                            <mxPoint x="910" y="3680"/>
+                        </Array>
+                        <mxPoint x="885" y="3700" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="LspWCPcuFfCpB5fYmq09-66" value="adicional" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;" vertex="1" parent="LmvPyFuXYSbYmxySzK6N-1">
+                    <mxGeometry x="880" y="3710" width="60" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="LspWCPcuFfCpB5fYmq09-67" value="SI(cantHoras &amp;gt; 100)" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;" vertex="1" parent="LmvPyFuXYSbYmxySzK6N-1">
+                    <mxGeometry x="880" y="3770" width="120" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="LspWCPcuFfCpB5fYmq09-68" value="salarioEmpleado &amp;lt;-- salarioEmpleado + (50*(cantHoras-100))" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;" vertex="1" parent="LmvPyFuXYSbYmxySzK6N-1">
+                    <mxGeometry x="960" y="3810" width="340" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="LspWCPcuFfCpB5fYmq09-70" value="SI(cantHoras &amp;lt;= 160)" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;" vertex="1" parent="LmvPyFuXYSbYmxySzK6N-1">
+                    <mxGeometry x="920" y="3790" width="130" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="LspWCPcuFfCpB5fYmq09-71" value="SI NO" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;" vertex="1" parent="LmvPyFuXYSbYmxySzK6N-1">
+                    <mxGeometry x="930" y="3830" width="50" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="LspWCPcuFfCpB5fYmq09-72" value="salarioEmpleado &amp;lt;-- salarioEmpleado + (50*(60))" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;" vertex="1" parent="LmvPyFuXYSbYmxySzK6N-1">
+                    <mxGeometry x="961" y="3850" width="280" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="LspWCPcuFfCpB5fYmq09-73" value=":Tecnico" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;collapsible=0;recursiveResize=0;outlineConnect=0;shadow=0;fillColor=#2A2A2A;" vertex="1" parent="LmvPyFuXYSbYmxySzK6N-1">
+                    <mxGeometry x="830" y="3960" width="100" height="300" as="geometry"/>
+                </mxCell>
+                <mxCell id="LspWCPcuFfCpB5fYmq09-74" value="obtenerAdicionalPorTitulo(infoTitulos)" style="html=1;verticalAlign=bottom;endArrow=block;" edge="1" parent="LmvPyFuXYSbYmxySzK6N-1">
+                    <mxGeometry width="80" relative="1" as="geometry">
+                        <mxPoint x="690" y="4040" as="sourcePoint"/>
+                        <mxPoint x="880" y="4040" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="LspWCPcuFfCpB5fYmq09-76" value="" style="shape=curlyBracket;whiteSpace=wrap;html=1;rounded=1;shadow=0;fillColor=#2A2A2A;" vertex="1" parent="LmvPyFuXYSbYmxySzK6N-1">
+                    <mxGeometry x="775" y="4070" width="20" height="90" as="geometry"/>
+                </mxCell>
+                <mxCell id="LspWCPcuFfCpB5fYmq09-77" value="[para cada tituloX&lt;br&gt;de infoTitulos&lt;br&gt;hasta TRUE]" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;" vertex="1" parent="LmvPyFuXYSbYmxySzK6N-1">
+                    <mxGeometry x="665" y="4090" width="110" height="50" as="geometry"/>
+                </mxCell>
+                <mxCell id="LspWCPcuFfCpB5fYmq09-79" value="SI (tituloX = titulo)" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;" vertex="1" parent="LmvPyFuXYSbYmxySzK6N-1">
+                    <mxGeometry x="880" y="4082" width="110" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="LspWCPcuFfCpB5fYmq09-80" value="" style="shape=curlyBracket;whiteSpace=wrap;html=1;rounded=1;shadow=0;fillColor=#2A2A2A;" vertex="1" parent="LmvPyFuXYSbYmxySzK6N-1">
+                    <mxGeometry x="855" y="4100" width="20" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="LspWCPcuFfCpB5fYmq09-81" value="[SI true]" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;" vertex="1" parent="LmvPyFuXYSbYmxySzK6N-1">
+                    <mxGeometry x="795" y="4120" width="60" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="LspWCPcuFfCpB5fYmq09-82" value="adicional &amp;lt;-- porcentPorTitulo" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;" vertex="1" parent="LmvPyFuXYSbYmxySzK6N-1">
+                    <mxGeometry x="880" y="4120" width="170" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="LspWCPcuFfCpB5fYmq09-83" value="adicional" style="html=1;verticalAlign=bottom;endArrow=open;dashed=1;endSize=8;" edge="1" parent="LmvPyFuXYSbYmxySzK6N-1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="880" y="4200" as="sourcePoint"/>
+                        <mxPoint x="800" y="4200" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
             </root>
         </mxGraphModel>
     </diagram>
