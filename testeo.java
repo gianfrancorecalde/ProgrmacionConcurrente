@@ -2,6 +2,8 @@ package ProgrmacionConcurrente;
 
 import java.util.*;
 import ProgrmacionConcurrente.Puerto.*;
+import ProgrmacionConcurrente.Empresa.Empleado;
+import ProgrmacionConcurrente.Empresa.Tecnico;
 import ProgrmacionConcurrente.Lineales.Dinamicas.*;
 
 public class testeo {
@@ -29,11 +31,9 @@ public class testeo {
         System.out.println(actual.getMonth());
     } */
 
-    /* public static void main(String[] args) {
-        Date d = new Date();
-        long e = d.getTime();
-        d.setTime(e + 86400000);
-        System.out.println(d);
-    } */
+    public static void main(String[] args) {
+        Empleado e = new Tecnico(00000, "nombre", 66, "direccion", new Date(), "sexo", 4, 5, "titulo", 6);
+        
+    }
 
 }

@@ -2,7 +2,7 @@ package ProgrmacionConcurrente.Empresa;
 
 import java.util.*;
 
-public class Persona {
+public abstract class Persona {
     
     private String nombre;
     private int dni;
@@ -10,7 +10,7 @@ public class Persona {
     private Date fchaNacimiento;
     private String sexo; 
 
-    public Persona(String nombre, int dni, String direccion, Date fchaNacimiento, String sexo){
+    protected Persona(String nombre, int dni, String direccion, Date fchaNacimiento, String sexo){
         this.nombre = nombre;
         this.dni = dni;
         this.direccion = direccion;
@@ -46,7 +46,7 @@ public class Persona {
         return fchaNacimiento;
     }
 
-    public void setFchaNacimiento(Calendar fchaNacimiento) {
+    public void setFchaNacimiento(Date fchaNacimiento) {
         this.fchaNacimiento = fchaNacimiento;
     }
 

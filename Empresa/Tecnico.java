@@ -5,8 +5,8 @@ public class Tecnico extends Empleado{
     private String titulo;
     private int anioRecibido;
 
-    public Tecnico(String nombre, int dni, String direccion, Date fchaNacimiento, String sexo, int legajo, int antiguedad, String titulo, int anioRecibido){
-        super(nombre, dni, direccion, fchaNacimiento, sexo, legajo, antiguedad);
+    public Tecnico(double salario, String nombre, int dni, String direccion, Date fchaNacimiento, String sexo, int legajo, int antiguedad, String titulo, int anioRecibido){
+        super(salario, nombre, dni, direccion, fchaNacimiento, sexo, legajo, antiguedad);
         this.titulo = titulo;
         this.anioRecibido = anioRecibido;
     }
