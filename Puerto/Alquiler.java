@@ -8,15 +8,17 @@ public class Alquiler {
     private int cliente;
     private Barco barco;
     private int amarre;
-    private Calendar fchIni;
-    private Calendar fchFinal;
+    private Date fchIni;
+    private Date fchFinal;
+    private double valorAlquiler;
 
-    public Alquiler(int  cliente, Barco barco, int amarre, Calendar fchIni, Calendar fchFin){
+    public Alquiler(int  cliente, Barco barco, int amarre, Date fchIni, Date fchFin, double valorAlquiler){
         this.cliente = cliente;
         this.barco = barco;
         this.amarre = amarre;
         this.fchFinal = fchFin;
         this.fchIni = fchIni;
+        this.valorAlquiler = valorAlquiler;
     }
 
 
@@ -44,20 +46,20 @@ public class Alquiler {
         this.amarre = amarre;
     }
 
-    public Calendar getFchIni() {
+    public Date getFchIni() {
         return this.fchIni;
     }
 
-    public void setFchIni(int diaIni, int mesIni, int anioIni) {
-        this.fchIni.set(anioIni, mesIni, diaIni);
+    public void setFchIni(Date otraFchaIni) {
+        this.fchIni = otraFchaIni;
     }
 
-    public Calendar getFchFinal() {
+    public Date getFchFinal() {
         return this.fchFinal;
     }
 
-    public void setFchFinal(int diaFinal, int mesFinal, int anioFinal) {
-        this.fchFinal.set(anioFinal, mesFinal, diaFinal);
+    public void setFchFinal(Date fchFinal) {
+        this.fchFinal = fchFinal;
     }
 
 

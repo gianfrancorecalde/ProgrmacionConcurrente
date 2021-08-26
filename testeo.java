@@ -17,7 +17,7 @@ public class testeo {
         System.out.println(algo);
     } */
 
-    public static void main(String[] args) {
+    /* public static void main(String[] args) {
         long t1 = new GregorianCalendar(2021, 8, 24).getTimeInMillis();
         Calendar t = Calendar.getInstance();
         t.set(Calendar.HOUR, 0);
@@ -27,5 +27,13 @@ public class testeo {
         Date actual = new Date();
         System.out.println(t.get(Calendar.MONTH) + " "+ t.get(Calendar.DATE) + " "+t.get(Calendar.YEAR));
         System.out.println(actual.getMonth());
-    }
+    } */
+
+    /* public static void main(String[] args) {
+        Date d = new Date();
+        long e = d.getTime();
+        d.setTime(e + 86400000);
+        System.out.println(d);
+    } */
+
 }

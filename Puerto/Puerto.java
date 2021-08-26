@@ -37,9 +37,10 @@ public class Puerto {
     }
 
     public boolean agregarAlquiler(int nroAmarre, Barco unBarco, int unCliente, int cantDias){
-        Calendar today = new GregorianCalendar(2021, 8, 24);
-        long aux = today.getTimeInMillis();
-        Alquiler alq = new Alquiler(unCliente, unBarco, nroAmarre,today,today);
+        Date hoy = new Date();
+        Date fin = new Date();
+        fin.setTime(hoy.getTime()+(1000*60*60*24*cantDias));
+        Alquiler alq = new Alquiler(unCliente, unBarco, nroAmarre, hoy, fin, unBarco.calcularValor(cantDias, valorFijo));
         return colAlquileres.insertar(alq, colAlquileres.longitud()+1);
     }
 }

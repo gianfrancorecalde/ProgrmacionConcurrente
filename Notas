@@ -1,0 +1,87 @@
+Ejercicio 1 :
+a. Los Constructores pueden llamar a otros constructores.
+    Verdadero, si se pueden llamar a otra clase mediante su nombre y el uso de metodo estatico
+
+    FullScreenMorph
+
+    "constructor"
+    crear
+        self new openInWorld.
+        BorderedMorph new openInExternalWindow.
+
+    En este caso se llamaria a un BorderedMorph desde el metodo constrtuctor de FullScreenMorph
+
+b. Se usa this para invocar a un constructor dentro de la clase.
+    Verdadero, se puede utilizar mientras no sea el mismo constructor que lo aplica.
+    Se genera recursion infinita.
+
+c. El constructor de una clase derivada no puede invocar al constructor de
+    una clase base.
+    Falsa, ya que en caso de no tener atributos la subclase y su superclase
+    no sea abstracta se podria crear esta con el constructor de su superclase
+
+    CLASE A (nombre, apellido)
+
+    CLASE B ()
+
+    B podria llamar al constructor de A si esta NO ES ABSTRACTA
+
+d. Si una clase redefine un método de la clase base, la versión en la clase
+    derivada no afecta a la de la clase base.
+    Verdadero, la redefinicion en la clase derivada no afectara a la clase base.
+
+e. Siempre se puede crear una instancia de una clase.
+    Falso, ya que existen las clases abstractas
+
+f. Una subclase puede tener métodos abstractos.
+    Verdadero, una subclase puede tener metodos abstractos solo si es abstracta por ende tiene subclases
+    Metodo abstracto se declara en la clase abstracta pero obliga a redefinir en las subclases
+
+
+Ejercicio 2: 
+    1) explique como se define una clase abstracta en java
+
+    Una clase abstracta es una clase especial que es una superclase que
+    contiene métodos no implementados. Por lo tanto, la subclase que hereda
+    la clase abstracta principal debería implementar todos los métodos abstractos.
+
+    2)
+
+    3) Se declara como variables de clase. En java :
+
+    visibilidad static tipoDato x;
+
+    4)  En metodos: El modificador impide que las subclases redefinan el metodo de la clase base
+
+        Variable local nos declara un valor fijo que no se puede modificar pero existe solo dentro del metodo
+        que la declara
+
+        variable de instancia: En este caso cada instancia se le declara el valor de 
+        la variable y no se puede cambiar.
+
+        En clase: Permite bloquear la herencia, ya que luego de esta no se pueden
+        poner subclases.
+
+    5) No sucede nada si esta no se inicializa en la declaracion pero se tendra que declarar en todos los constructores
+
+    6) 
+
+    7) El alcance de una variable local finaliza cuando el metodo, al que pertenece, finaliza.
+
+    8) Se puede inicializar en cualquier momento pero se considera buena practica declararla y darle una inicializacion comienzo del codigo.
+    En caso de estas no inicializarse hay valores por defectos para cada tipo de datos
+
+    9)El casteo (casting) es un procedimiento para transformar una variable primitiva de un tipo a otro, 
+o transformar un objeto de una clase a otra clase siempre y cuando haya una relación de herencia entre ambas.
+En smalltalk no se requiere hacer casting porque es un lenguaje tipado dinamico.
+
+    11) La visibilidad del metodo hacerAlgo() de la clase Hijo, es privado porque lo que en el 
+    main al llamar al metodo con una intancia de Hijo directamente se ejecutara el metodo hacerAlgo()
+    de la clase Padre (superclase). Se resuelve cambiando la visibilidad del metodo hacerAlgo() 
+    en la subclase Hijo.
+
+    12) a) Es un polimorfismo de reemplazo ya en el metodo aCadena() de la subclase se vuelve a definir 
+    el metodo de la clase padre con pero con otros cambio sin hacer uso del super.
+        b) Si la subclase se encuentra en un package distinto al del padre, al inicializar una 
+        instancia de la subclase dara error.
+        c)
