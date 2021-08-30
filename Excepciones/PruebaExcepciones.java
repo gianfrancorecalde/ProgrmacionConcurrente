@@ -1,6 +1,9 @@
 package ProgrmacionConcurrente.Excepciones;
 
 import java.io.IOException;
+import java.util.Scanner;
+
+import javax.swing.plaf.synth.SynthSpinnerUI;
 
 public class PruebaExcepciones {
 
@@ -135,19 +138,46 @@ public class PruebaExcepciones {
         }
     } */
 
-    public static String mayorEdad(int edad){
-        String a = "";
-        try{
-            if(edad >= 18){
-                a += "Mayor de edad";
-            }
-        }catch(Exception e){
-            System.out.println("Menor de edad");
+    /*          Ejercicio 8              */
+
+    /* public static void mayorEdad(int edad) throws Exception{
+        if(edad >= 18){
+            System.out.println("mayor edad");
+        }else{
+            throw new Exception();
         }
-        return a;
+    } */
+
+    /* public static String ruleta(int num) throws Exception{
+            if((int)Math.random()*100 == num){
+                return "Numero acertado";
+            }else{
+                throw new Exception();
+            }
+    } */
+
+    public static void agregarElem(int [] arr){
+        Scanner sc = new Scanner(System.in);
+        int i;
+        for(i=0; i<5; i++){
+            System.out.println("Ingrese un numero");
+            int x = sc.nextInt();
+            arr[i] = x;
+        }
     }
 
     public static void main(String[] args) {
-        System.out.println(mayorEdad(17));
+        int [] arr = new int[5];
+        agregarElem(arr);
+        try{
+            int i;
+            for(i=0; i<7;i++){
+                System.out.println(arr[i]);
+            }
+        }finally{
+            System.out.println("nada");
+        }
     }
+
+    
 }

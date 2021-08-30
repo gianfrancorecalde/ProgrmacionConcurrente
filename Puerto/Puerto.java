@@ -7,6 +7,7 @@ public class Puerto {
     private Lista colAlquileres;
     private int valorFijo = 200;
     private static int tamanio = 3;
+    private static int limiteDias = 30;
 
     public Puerto(){
         colAmarre = new int[tamanio];
@@ -36,7 +37,12 @@ public class Puerto {
         return this.colAlquileres;
     }
 
+    public static int getLimiteDias() {
+        return limiteDias;
+    }
+
     public boolean agregarAlquiler(int nroAmarre, Barco unBarco, int unCliente, int cantDias){
+        
         Date hoy = new Date();
         Date fin = new Date();
         fin.setTime(hoy.getTime()+(1000*60*60*24*cantDias));

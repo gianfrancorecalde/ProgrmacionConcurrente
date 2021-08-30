@@ -31,3 +31,24 @@ Ejercicio 7:
     c) En el try aparece una excepcion ya que no se puede convertir el string W en entero y en el catch no se puede resolver. Porque en el metodo()
     se sigue ejecutando la parte del finally donde se incrementa nuevamente el valor de la variable VALOR e imprime el  valor de VALOR. Y en el main
     se captura la excepcion q metodo() devuelve e imprime "excepcion en metodo()".
+
+Ejercicio 11:
+     Un bloque try tiene que ser seguido por un catch y un finally.
+        falso, el bloque try debe estar anterior al catch y finally
+    Si escribe un método que podría causar una excepción chequeada, debe
+    encerrar el código de riesgo en un bloque try/catch.
+
+    Solo las excepciones chequeadas pueden ser capturadas.
+        Falso, tanto las verificadas como las no verificadas pueden ser capturadas.
+    Si escribe un método que declara que puede lanzar una excepción chequeada
+    por el compilador, se debe también envolver el código que lanza la excepción
+    en un bloque try/catch
+        falso, lo que se captura el metodo en otro metodo que lo llame que podria ser un main.
+    Un bloque try puede existir por sí mismo, sin un bloque catch o un bloque
+    finally
+        falso, despues de un try si o si debe estar seguido de un catch o finally
+    Un método con un bloque try y un bloque finally, puede opcionalmente
+    declarar la excepción
+        verdadero, el programa seguira ejecutando el bloque finally luego de encontrar la ecepcion y lanzara la excepcion
+    Las excepciones de runtime deben ser manejadas o declaradas.
+        false, no necesariamente. 
