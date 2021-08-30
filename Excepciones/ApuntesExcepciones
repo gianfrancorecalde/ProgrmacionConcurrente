@@ -1,0 +1,33 @@
+Ejercicio 1 :
+    El nombre de la clase es Exception
+Ejercicio 2: 
+    La clase RunTimeException se aplica a la excepcion que surge cuando se invoca un metodo 
+    a un objeto null.
+    IOException para comportamiento anomalos de entradad/salida.
+Ejercicio 3: 
+    Las excepciones del tipo RunTimeException son errores del programador que se pueden evitar.
+Ejercicio 4: 
+    Al ejecutar el codigo salta la excepcion NullPointerException ya que el elemento en esa posicion 
+    es null. 
+Ejercicio 5:
+    Salta una excepcion del tipo NumberFormatException, ya que no se puede convertir el string hola en un entero.
+Ejercicio 6: 
+    En el codigo se propaga la excepcion RuneTimeException a al vez que se captura. Se podria mejorar capturando directamtne la excepcion
+    en el mismo metodo, o dejar que se propage la excepcion y caputarla en otro metodo. 
+
+Ejercicio 7:
+    a) Retorna 46 y escribe por pantalla:
+    valor al final del try: 44
+    valor al final del finally: 45
+    valor al final del return: 46
+    El catch de metodo() lo salta ya q no encuentra ninguna excepcion. 
+
+    b)Retorna 45 y escribe por pantalla: 
+     valor al final del catch: 43
+    valor al final del finally: 44
+    valor al final del return: 45
+    Esta vez si encuentra una excepcion ya que el string W no se pude convertir en entero y se salva la excepcion en el catch. 
+
+    c) En el try aparece una excepcion ya que no se puede convertir el string W en entero y en el catch no se puede resolver. Porque en el metodo()
+    se sigue ejecutando la parte del finally donde se incrementa nuevamente el valor de la variable VALOR e imprime el  valor de VALOR. Y en el main
+    se captura la excepcion q metodo() devuelve e imprime "excepcion en metodo()".

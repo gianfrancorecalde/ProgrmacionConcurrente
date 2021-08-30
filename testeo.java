@@ -31,9 +31,9 @@ public class testeo {
         System.out.println(actual.getMonth());
     } */
 
-    public static void main(String[] args) {
+    /* public static void main(String[] args) {
         Empleado e = new Tecnico(00000, "nombre", 66, "direccion", new Date(), "sexo", 4, 5, "titulo", 6);
         
-    }
+    } */
 
 }
