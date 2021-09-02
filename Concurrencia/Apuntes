@@ -1,0 +1,21 @@
+PRACTICO THREAD/RUNNABLE
+Ejercicio 1: 
+    En la clase Cliente el metodo run imprimira 
+    un "soy + el nombre de que tenga el objeto en el hilo actual
+    que se este ejecutando. 
+    Luego el metodo uso() de la clase Recurso emprime
+    un "en recurso: soy + el nombre del objeto en el hilo actual
+    que se este ejecutando.
+    Luego el main() inicializa dos cliente juan e ines, les 
+    setea el nombre y pone en listado para ejecucion ambos hilos
+    El metodo uso() imprime un cartel "en recurso: soy nombre"
+Ejercicio 2:
+    En la ejecucion se va a imprimir alternadamente el cartel 
+    "en el main" y "en la pila"
+    Si se queire imprimir "en el main" siempre a lo ultimo entonces se debera agregar un join junto con el try-cacht para 
+    capturar la posible excepcion. Entonces hasta que no finalice el hilo al cual se le aplcia el join, no imprimira el cartel.
+Ejercicio 3:
+    ATTE: parece ser que el SO tiende a darle siempre la prioridad de ejecutarse al imprimir del main.
+    El programa va alternando el cartel numero + nombre que tiene el hilo con "termina thread + nombre que tiene el hilo actual". 
+    No siempre corre en sencuencia los dos imprimir del run() para un mismo hilo, si no, que en el medio se puede colar el mismo run()
+    pero con otro objeto diferente.

@@ -37,7 +37,7 @@ Ejercicio 11:
         falso, el bloque try debe estar anterior al catch y finally
     Si escribe un método que podría causar una excepción chequeada, debe
     encerrar el código de riesgo en un bloque try/catch.
-
+        verdadero, se puede encerrar el codigo o se puede hacer una declaracion para q el main capture la excepcion y la trate.
     Solo las excepciones chequeadas pueden ser capturadas.
         Falso, tanto las verificadas como las no verificadas pueden ser capturadas.
     Si escribe un método que declara que puede lanzar una excepción chequeada
@@ -49,6 +49,6 @@ Ejercicio 11:
         falso, despues de un try si o si debe estar seguido de un catch o finally
     Un método con un bloque try y un bloque finally, puede opcionalmente
     declarar la excepción
-        verdadero, el programa seguira ejecutando el bloque finally luego de encontrar la ecepcion y lanzara la excepcion
+        falso, ya que si la intencion es capturar la excepcion se DEBE declarar la excepcion
     Las excepciones de runtime deben ser manejadas o declaradas.
         false, no necesariamente. 
