@@ -5,6 +5,7 @@ import ProgrmacionConcurrente.Puerto.*;
 import ProgrmacionConcurrente.Empresa.Empleado;
 import ProgrmacionConcurrente.Empresa.Tecnico;
 import ProgrmacionConcurrente.Lineales.Dinamicas.*;
+import ProgrmacionConcurrente.Concurrencia.*;
 
 public class testeo {
     
@@ -36,4 +37,33 @@ public class testeo {
         
     } */
 
+    /* public static void main(String[] args) {
+        System.out.println("Hilo princiapl iniciando.");
+        unHilo mh = new unHilo("#1");
+        unHilo mh2 = new unHilo("#2");
+        unHilo mh3 = new unHilo("#3");
+        //Thread nuevoHilo = new Thread(mh);
+        //nuevoHilo.start();
+        mh.start();
+        mh2.start();
+        mh3.start();
+        for(int i=0; i<50;i++){
+            System.out.print(" .");
+        }
+        try {
+            Thread.sleep(500);
+        } catch (Exception e) {
+            System.out.println("Hilo principal interrumpido");
+        }
+        System.out.println("hilo principal finalizado");
+    } */
+
+    public static void main(String[] args) {
+        Clienta cliente1 = new Clienta("Cliente 1", new int[]{2,2,1,5,2,3});
+        Clienta cliente2 = new Clienta("Cliente 2", new int[]{1,3,5,1,1});
+        Cajero cajero1 = new Cajero("Cajero 1");
+        long initialTime = System.currentTimeMillis();
+        cajero1.procesarCompra(cliente1, initialTime);
+        cajero1.procesarCompra(cliente2, initialTime);
+    }
 }

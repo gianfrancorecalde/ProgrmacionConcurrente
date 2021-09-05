@@ -19,3 +19,8 @@ Ejercicio 3:
     El programa va alternando el cartel numero + nombre que tiene el hilo con "termina thread + nombre que tiene el hilo actual". 
     No siempre corre en sencuencia los dos imprimir del run() para un mismo hilo, si no, que en el medio se puede colar el mismo run()
     pero con otro objeto diferente.
+Ejercicio 5: 
+    a) Al quitarse el sleep(), el cartel "hilo principal finalizado" tendra posibilidad de aparecer 
+    mas rapidamente apenas se termine el for del hilo main y mientra el main tenga la CPU.
+    B) No siempre termina al final ni antes, eso dependera de la prioridad que tenga cada hilo.
+    d) No se ejecuta en orden, se ejecuta de acuerdo a la prioridad que el SO le de a los hilos.
