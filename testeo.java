@@ -58,12 +58,60 @@ public class testeo {
         System.out.println("hilo principal finalizado");
     } */
 
-    public static void main(String[] args) {
+    
+    /*                                                  EJERCICIO 6 */
+
+    /* public static void main(String[] args) {
         Clienta cliente1 = new Clienta("Cliente 1", new int[]{2,2,1,5,2,3});
         Clienta cliente2 = new Clienta("Cliente 2", new int[]{1,3,5,1,1});
         Cajero cajero1 = new Cajero("Cajero 1");
         long initialTime = System.currentTimeMillis();
         cajero1.procesarCompra(cliente1, initialTime);
         cajero1.procesarCompra(cliente2, initialTime);
+    } */
+
+    /* EJERCICIO A CON CLASE THREAD */
+
+    /* public static void main(String[] args) {
+        Clienta cliente1 = new Clienta("Cliente 1", new int[]{2,2,1,5,2,3});
+        Clienta cliente2 = new Clienta("Cliente 2", new int[]{1,3,5,1,1});
+
+        CajeroThread c1 = new CajeroThread("Cajero 1", cliente1, System.currentTimeMillis());
+        CajeroThread c2 = new CajeroThread("Cajero 2", cliente2, System.currentTimeMillis());
+        
+        c1.start();
+        c2.start();
+
+        try {
+            c1.join();
+            c2.join();
+        } catch (Exception e) {
+            System.err.println("algo salio mal");
+        }
+        System.out.println("Finalizaron los cajeros");
+    } */
+
+    /* EJERCICIO 6 CON INTERFAZ RUNNABLE */
+
+    public static void main(String[] args) {
+        Clienta cliente1 = new Clienta("Cliente 1", new int[]{2,2,1,5,2,3});
+        Clienta cliente2 = new Clienta("Cliente 2", new int[]{1,3,5,1,1});
+
+        CajeroRunnable c1 = new CajeroRunnable("Cajero 1", cliente1, System.currentTimeMillis());
+        CajeroRunnable c2 = new CajeroRunnable("Cajero 2", cliente2, System.currentTimeMillis());
+        
+        Thread h1 = new Thread(c1);
+        Thread h2 = new Thread(c2);
+
+        h1.start();
+        h2.start();
+
+        try {
+            h1.join();
+            h2.join();
+        } catch (Exception e) {
+            System.err.println("algo salio mal");
+        }
+        System.out.println("Finalizaron los cajeros");
     }
 }

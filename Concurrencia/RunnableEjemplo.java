@@ -1,10 +1,10 @@
 package ProgrmacionConcurrente.Concurrencia;
 
-public class ThreadEjemplo2 implements Runnable{
+public class RunnableEjemplo implements Runnable{
 
     private String str;
 
-    public ThreadEjemplo2(String str){
+    public RunnableEjemplo(String str){
         this.str = str;
     }
 
@@ -17,11 +17,14 @@ public class ThreadEjemplo2 implements Runnable{
     
     public static void main(String[] args) {
 
-        ThreadEjemplo2 a1 = new ThreadEjemplo2("Maria Jose");
-        ThreadEjemplo2 a2 = new ThreadEjemplo2("Jose Maria");
+        RunnableEjemplo a1 = new RunnableEjemplo("Maria Jose");
+        RunnableEjemplo a2 = new RunnableEjemplo("Jose Maria");
         
         Thread t1 = new Thread(a1);
         Thread t2 = new Thread(a2);
+
+        t1.start();
+        t2.start();
         System.out.println("termina thread main");
     }
 }

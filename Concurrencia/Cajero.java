@@ -1,5 +1,7 @@
 package ProgrmacionConcurrente.Concurrencia;
 
+import java.util.RandomAccess;
+
 public class Cajero {
     private String nombre; 
    
@@ -22,9 +24,8 @@ public class Cajero {
     }
 
     private void esperarXSegundos(int segundos){
-        int conatado = 0;
-        for(int i=0; i<segundos; i++){
-            conatado+=i;
+        for(long i=0; i<segundos*1000; i++){
+            long contador = (long) Math.random() * i;
         }
     }
 }
