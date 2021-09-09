@@ -1,0 +1,4 @@
+Ejercicio 1: 
+    Para evitar que la cuenta se sobregire, al metodo hacerRetiro() se le agrega la palabra reservada Synchronized. De esta manera,
+    el hilo que quiera ejecutar hacerRetiro(), primero comprobara que este metodo no este siendo ejecutado por otro hilo.
+    Dandole prioridad a que finalice la ejecucion del hilo que ya haya iniciado su ejecucion del metodo. 
