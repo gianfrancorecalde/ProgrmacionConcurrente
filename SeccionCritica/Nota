@@ -1,0 +1,10 @@
+Ejercicio 1: 
+    a)En la clase SynchronizesCounter sincronice el metodo decrementar() para que se respeta el exclusion mutua, ya que si no dos hilos que esten modificando 
+    se podrian pisar. Podria hacer una sincronizacion del objeto c.
+    b)
+Ejercicio 2:
+    a) Si sem2 = 0, los hilos que existan se inicializaran con algun proceso pero quedaran 
+    bloqueados hasta la habilitacion del permiso de algunos de los tres sem, sem1, sem2 y sem3. 
+    b) En caso de que el semaforo sem1 = 1, arrancara el hilo que se este ejecutando con el proceso 
+    P3. A su vez, P3 liberara los permisos de sem3 y sem4 permitiendo la ejecucion de los procesos 
+    P4 y P2. En P4 
