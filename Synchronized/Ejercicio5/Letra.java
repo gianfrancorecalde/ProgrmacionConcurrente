@@ -15,6 +15,7 @@ public class Letra implements Runnable {
     public void run() {
         int i = 0;
         while ( i<10) {
+            // genero las cadenas de Aes Bs y Ces
             i += gt.turno(repeticion, turno);
         }
         
