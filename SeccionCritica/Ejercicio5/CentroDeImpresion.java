@@ -4,68 +4,64 @@ import java.util.concurrent.Semaphore;
 
 public class CentroDeImpresion {
 
-    private Semaphore tipoA;
-    private Semaphore tipoB;
-    private ImpresoraTipoA numA;
-    private ImpresoraTipoB numB;
+    private Semaphore impA[];
+    private Semaphore impB[];
+    private Semaphore mutex;
 
-    public CentroDeImpresion() {
-        tipoA = new Semaphore(1);
-        tipoB = new Semaphore(1);
-        numA = new ImpresoraTipoA();
-        numB = new ImpresoraTipoB();
+    public CentroDeImpresion(Semaphore arr1[], Semaphore arr2[]) {
+        impA = arr1;
+        impB = arr2;
+        mutex= new Semaphore(1);   
     }
 
-    public void imprimir(char tipo, String contenido) {
-        switch (tipo) {
-            case 'A':
-                    imprimirConA(contenido);
-                break;
-            case 'B':
-                    imprimirConB(contenido);
-                break;
-            case 'X':
-                boolean impreso = false;
-                
-                while(!impreso){
-                    if(tipoA.tryAcquire()){
-                        imprimirConA(contenido);
-                        impreso = true;
-                    }else{
-                        if(tipoB.tryAcquire()){
-                            imprimirConB(contenido);
-                            impreso = true;
-                        }
-                    }
-                    System.out.println("estoy en el while"+Thread.currentThread().getName());
-                }
-                break;
-            default:
-                break;
-        }
-
-    }
-
-    private void imprimirConA(String contenido) {
+    public  void  intenta(){
         try {
-            tipoA.acquire();
-            System.out.println("ok");
-            numA.imprimiendo(contenido);
-            Thread.sleep(1000);
-            tipoA.release();
+            mutex.acquire();
+            System.out.println(Thread.currentThread().getName() + " Tiene la exclusividad");
         } catch (Exception e) {
-            // TODO: handle exception
         }
     }
 
-    private void imprimirConB(String contenido) {
+    public boolean intentaTomarA(int posicion){
+        boolean exito = false;
         try {
-            tipoB.acquire();
-            numB.imprimiendo(contenido);
-            Thread.sleep(1000);
-            tipoB.release();
+            exito = impA[posicion].tryAcquire();
+            if(exito){
+                mutex.release();
+
+            }
         } catch (Exception e) {
-            // TODO: handle exception
+            //TODO: handle exception
+        }
+        return exito;
+    }
+
+    public boolean intentaTomarB(int posicion){
+        boolean exito = false;
+        try {
+            exito = impB[posicion].tryAcquire();
+            if(exito){
+                mutex.release();
+            }
+        } catch (Exception e) {
+            //TODO: handle exception
+        }
+        return exito;
+    }
+    
+    public void liberarA(int posicion){
+        try {
+            impA[posicion].release();
+        } catch (Exception e) {
+            //TODO: handle exception
+        }
+    }
+
+    public void liberarB(int posicion){
+        try {
+            impB[posicion].release();
+        } catch (Exception e) {
+            //TODO: handle exception
         }
     }
 }

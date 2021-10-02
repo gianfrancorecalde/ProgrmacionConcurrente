@@ -90,9 +90,9 @@ public class main {
         int arr[] = new int[10];
         for (int i = 0; i < arr.length; i++) {
             arr[i] = new Random().nextInt(9);
-            System.out.println(arr[i]);
         }
 
+        
     }
 
 }

@@ -1,11 +1,14 @@
 package ProgrmacionConcurrente.SeccionCritica;
 
+import java.util.concurrent.Semaphore;
+
 import ProgrmacionConcurrente.SeccionCritica.Ejercicio4.GestorLetras;
 import ProgrmacionConcurrente.SeccionCritica.Ejercicio4.Letra;
 import ProgrmacionConcurrente.SeccionCritica.Ejercicio5.CentroDeImpresion;
+import ProgrmacionConcurrente.SeccionCritica.Ejercicio5.Impresora;
 import ProgrmacionConcurrente.SeccionCritica.Ejercicio5.Usuario;
 import ProgrmacionConcurrente.SeccionCritica.Ejercicio6.Atleta;
-import ProgrmacionConcurrente.SeccionCritica.Ejercicio6.Testigo;
+import ProgrmacionConcurrente.SeccionCritica.Ejercicio6.Carrera;
 import jdk.incubator.vector.VectorOperators.Test;
 
 public class main {
@@ -57,8 +60,17 @@ public class main {
 
     /*      EJERCICIO 5      */
 
-    public static void main(String[] args) {
-        CentroDeImpresion centroImp = new CentroDeImpresion();
+    /* public static void main(String[] args) {
+        
+        Semaphore arrA[] = new Semaphore[5];
+        Semaphore arrB[] = new Semaphore[5];
+        for (int i = 0; i < arrA.length; i++) {
+            arrA[i]= new Semaphore(1);
+        }
+        for (int i = 0; i < arrA.length; i++) {
+            arrB[i]= new Semaphore(1);
+       }
+        CentroDeImpresion centroImp = new CentroDeImpresion(arrA, arrB);
         Usuario usu1 = new Usuario('A', "algo de usuaraio1", centroImp);
         Usuario usu2 = new Usuario('B', "algo de usuaraio2", centroImp);
         Usuario usu3 = new Usuario('B', "algo de usuaraio3", centroImp);
@@ -68,21 +80,26 @@ public class main {
         usu2.start();
         usu3.start();
         usu4.start();
-    }
+    } */
 
     /*      EJERCICIO 6      */
 
-    /* public static void main(String[] args) {
-        Testigo t = new Testigo();
-        Atleta corredor1 = new Atleta(t, "corredor1");
-        Atleta corredor2 = new Atleta(t, "corredor2");
-        Atleta corredor3 = new Atleta(t, "corredor3");
-        Atleta corredor4 = new Atleta(t, "corredor4");
+    public static void main(String[] args) {
+        Semaphore [] arr = {new Semaphore(1),new Semaphore(0)};
+        Carrera t = new Carrera(arr);
+        Atleta corredor1 = new Atleta(t,0);
+        Atleta corredor2 = new Atleta(t,0);
+        Atleta corredor3 = new Atleta(t,1);
+        Atleta corredor4 = new Atleta(t,1);
+        Thread h1 = new Thread(corredor1, "Corredor1");
+        Thread h2 = new Thread(corredor2, "Corredor2");
+        Thread h3 = new Thread(corredor3, "Corredor3");
+        Thread h4 = new Thread(corredor4, "Corredor4");
+        
+        Thread [] hilos = {h1,h2,h3,h4};
+        for (int i = 0; i < hilos.length; i++) {
+            hilos[i].start();
+        }
 
-
-        corredor1.start();
-        corredor2.start();
-        corredor3.start();
-        corredor4.start();
-    } */
+        }
 }
