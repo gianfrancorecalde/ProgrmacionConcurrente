@@ -9,6 +9,9 @@ import ProgrmacionConcurrente.SeccionCritica.Ejercicio5.Impresora;
 import ProgrmacionConcurrente.SeccionCritica.Ejercicio5.Usuario;
 import ProgrmacionConcurrente.SeccionCritica.Ejercicio6.Atleta;
 import ProgrmacionConcurrente.SeccionCritica.Ejercicio6.Carrera;
+import ProgrmacionConcurrente.SeccionCritica.Ejercicio7.Pasajero;
+import ProgrmacionConcurrente.SeccionCritica.Ejercicio7.Taxi;
+import ProgrmacionConcurrente.SeccionCritica.Ejercicio7.Taxista;
 import jdk.incubator.vector.VectorOperators.Test;
 
 public class main {
@@ -84,7 +87,7 @@ public class main {
 
     /*      EJERCICIO 6      */
 
-    public static void main(String[] args) {
+    /* public static void main(String[] args) {
         Semaphore [] arr = {new Semaphore(1),new Semaphore(0)};
         Carrera t = new Carrera(arr);
         Atleta corredor1 = new Atleta(t,0);
@@ -101,5 +104,23 @@ public class main {
             hilos[i].start();
         }
 
-        }
+        } */
+
+    /*      EJERCICIO 7      */
+
+    public static void main(String[] args) {
+        Taxi nro1 = new Taxi();
+        Taxista t1 = new Taxista(nro1);
+        Pasajero p1 = new Pasajero("Neuquen", nro1);
+        Pasajero p2 = new Pasajero("Cipolletti", nro1);
+
+        Thread puesto1 = new Thread(t1, "Jorge");
+        Thread v2 = new Thread(p1, "Matias");
+        Thread v3 = new Thread(p2, "Franco");
+
+        puesto1.start();
+        v2.start();
+        v3.start();
+
+    }
 }
