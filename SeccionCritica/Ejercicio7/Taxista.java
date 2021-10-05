@@ -14,12 +14,20 @@ public class Taxista implements Runnable {
             while(true){
                 System.out.println(Thread.currentThread().getName() + " a caido en un profundo sueño");
                 taxi.atenderCliente();
-                Thread.sleep(2000); // simula viaje a destino
+                simulacionViaje();
                 taxi.paradaAlcanzada(); 
             }
         } catch (Exception e) {
             // TODO: handle exception
         }
 
+    }
+
+    private void simulacionViaje(){
+        try {
+            Thread.sleep(2000); // simula viaje a destino
+        } catch (Exception e) {
+            //TODO: handle exception
+        }
     }
 }
