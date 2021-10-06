@@ -10,7 +10,7 @@ public class Enfermero implements Runnable {
     
     private void realizandoExtracion(){
         try {
-            System.out.println("Realizando la extraccion de sangre");
+            System.out.println(Thread.currentThread().getName()  + "Realizando la extraccion de sangre");
             Thread.sleep(1000);
         } catch (Exception e) {
             //TODO: handle exception
@@ -19,9 +19,11 @@ public class Enfermero implements Runnable {
 
     @Override
     public void run() {
-        centroHem.atiendeDonanteParaExtraccion();
+        while (true) {
+            centroHem.atiendeDonanteParaExtraccion();
         realizandoExtracion();
         centroHem.finalizaExtraccion();
+        }
     }
 
 }
