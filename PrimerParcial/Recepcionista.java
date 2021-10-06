@@ -13,11 +13,22 @@ public class Recepcionista implements Runnable{
         while(true){
             organizaExtracciones();
             centroHem.atiendeLLamado();
+            recepcionando();
+            centroHem.finalizaLlamada();
         }
     }
 
     private void organizaExtracciones(){
-        System.out.println("Almacenando extracciones en heladeras");
+        System.out.println("Almacenando extracciones de sangre en heladeras");
+        try {
+            Thread.sleep(1000);
+        } catch (Exception e) {
+            //TODO: handle exception
+        }
+    }
+
+    private void recepcionando(){
+        System.out.println("El donante esta siendo recepcionado");
         try {
             Thread.sleep(1000);
         } catch (Exception e) {

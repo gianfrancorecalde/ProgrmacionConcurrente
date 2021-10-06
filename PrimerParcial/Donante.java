@@ -11,12 +11,13 @@ public class Donante implements Runnable{
     @Override
     public void run() {
         centroHem.llamarAlCentro();
+        System.out.println("El donante llega al centro");
         espera();
-        centroHem.esperandoControl();
+        centroHem.recibeTurnoParaControlClinico();
         espera();
-        centroHem.esperandoExtraccion();
-        centroHem.entregaDeCertificadoDeDonacion();
+        centroHem.recibeTurnoParaExtraccion();
         centroHem.desayunando();
+        terminaDeDesayunar();
 
         
     }
@@ -25,6 +26,15 @@ public class Donante implements Runnable{
         System.out.println("Esperando ser atendido");
         try {
             Thread.sleep(2000); // simula viaje
+        } catch (Exception e) {
+            //TODO: handle exception
+        }
+    }
+
+    private void terminaDeDesayunar(){
+        try {
+            Thread.sleep(2000); // simula viaje
+            System.out.println("Se retira del centro de hemoterapia");
         } catch (Exception e) {
             //TODO: handle exception
         }
