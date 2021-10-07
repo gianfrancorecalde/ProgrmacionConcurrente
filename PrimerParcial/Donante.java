@@ -12,15 +12,12 @@ public class Donante implements Runnable{
     public void run() {
         centroHem.llamarAlCentro();
         centroHem.esperaFinalizacionDeLaRecepcion();
-        System.out.println(Thread.currentThread().getName() + "El donante llega al centro");
-        centroHem.perdirTurno();
+        System.out.println(Thread.currentThread().getName() + " llega al centro");
         centroHem.esperandoControlClinico();
         centroHem.proseguirAExtraccion();
         centroHem.despideAlEnfermero();
         centroHem.desayunando();
         terminaDeDesayunar();
-
-        
     }
 
     private void terminaDeDesayunar(){

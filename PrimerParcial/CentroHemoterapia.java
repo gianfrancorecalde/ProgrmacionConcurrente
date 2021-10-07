@@ -16,7 +16,7 @@ public class CentroHemoterapia {
     private Semaphore cortaLlamada;
     private Semaphore desayuno;
     private Semaphore mutexTurno;
-    private Semaphore hayLugar;
+    private Semaphore enEspera;
     private int sillasOcupadas;
     
     public CentroHemoterapia() {
@@ -31,7 +31,7 @@ public class CentroHemoterapia {
         habilitarEnfermero = new Semaphore(0);
         cortaLlamada = new Semaphore(0);
         desayuno = new Semaphore(0);
-        hayLugar = new Semaphore(0);
+        enEspera = new Semaphore(1,true);
         mutexTurno = new Semaphore(1);
         sillasOcupadas = 0;
     }
@@ -71,12 +71,23 @@ public class CentroHemoterapia {
         System.out.println(Thread.currentThread().getName() + " se despide");
     }
     
-    public void perdirTurno() {
+    private void incrementar(){
         try {
             mutexTurno.acquire();
+        } catch (InterruptedException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        sillasOcupadas++;
+        mutexTurno.release();
+    }
+
+    private void perdirTurno() {
+        try {
+            enEspera.acquire();
             if(sillasOcupadas < 5){
-                sillasOcupadas++;
-                hayLugar.release();
+                incrementar();
+                turnoParaControl.acquire();
                 System.out.println("Turno dado a" + Thread.currentThread().getName());
             }else{
                 System.out.println(Thread.currentThread().getName() + " en espera de turno");
@@ -84,12 +95,13 @@ public class CentroHemoterapia {
         } catch (Exception e) {
             //TODO: handle exception
         }
-        mutexTurno.release();
+        
     }
 
     public void esperandoControlClinico(){
         try {
-            hayLugar.acquire();
+            perdirTurno();
+            mutexTurno.release();
             turnoParaControl.acquire();
             System.out.println(Thread.currentThread().getName() + " esta listo para ser atendido por el clinico");
             controlMedico.release();
@@ -102,6 +114,7 @@ public class CentroHemoterapia {
     public void atiendeDonanteParaControl() {
         try {
             controlMedico.acquire();
+            sillasOcupadas--;
             System.out.println(Thread.currentThread().getName() + " atiende al donante para control ");
         } catch (Exception e) {
             // TODO: handle exception
