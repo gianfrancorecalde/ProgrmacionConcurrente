@@ -32,7 +32,7 @@ public class GestorCruce {
     }
 
 
-    public synchronized void llegaOeste() {
+   /*  public synchronized void llegaOeste() {
         try {
             if(semaforoO){
 
@@ -46,7 +46,7 @@ public class GestorCruce {
 
     public void llegaNorte() {
         try {
-            entradaN.acquire();
+            //entradaN.acquire();
         } catch (Exception e) {
             //TODO: handle exception
         }
@@ -54,7 +54,7 @@ public class GestorCruce {
     
     public void intentarCruzar() {
         try {
-            mutex.acquire();
+            //mutex.acquire();
             
         } catch (InterruptedException e) {
             // TODO Auto-generated catch block
@@ -76,7 +76,7 @@ public class GestorCruce {
 
     public void noPuedeCruzar() {
         mutex.release();
-    }
+    } */
 
     
 }

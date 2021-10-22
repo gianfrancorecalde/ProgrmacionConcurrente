@@ -10,8 +10,8 @@ public class CocheN implements Runnable{
 
     @Override
     public void run() {
-        gC.llegaNorte();
-        gC.cruzar();
-        gC.saleSur();
+        /* gC.llegaNorte();
+        //gC.cruzar();
+        gC.saleSur(); */
     }
 }

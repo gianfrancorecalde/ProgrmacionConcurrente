@@ -9,8 +9,12 @@ public class EmpleadoSnorkel extends Persona {
     @Override
     public void run() {
         while(true){
-            pB.entregarSnorkel();
-            pB.recepcionaSnorkel();
+            while(pB.getSnorkel() >0){
+                pB.entregarSnorkel();
+            }
+            while(pB.getSnorkel() < 1){
+                pB.recepcionaSnorkel();
+            }
         }
     }
 }

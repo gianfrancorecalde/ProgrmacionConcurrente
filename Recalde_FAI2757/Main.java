@@ -4,14 +4,14 @@ public class Main {
     
     public static void main(String[] args) {
         
-        PuestoBuceo puesto = new PuestoBuceo(3, 5);
-        Thread empAnt = new Thread(new EmpleadoAntiparras(puesto), "Empleado Antiparra");
-        Thread empSnork = new Thread(new EmpleadoSnorkel(puesto), "Empleado Snorkel");
+        PuestoBuceo puesto = new PuestoBuceo(3, 3);
+        Thread empAnt = new Thread(new Entrega(puesto), "Empleado Antiparra");
+        Thread empSnork = new Thread(new Devolucion(puesto), "Empleado Snorkel");
 
         empAnt.start();
         empSnork.start();
 
-        int tamanio = 5;
+        int tamanio = 3;
         Persona [] arrPers = new Persona[tamanio];
         Thread [] hP = new Thread[tamanio];
 

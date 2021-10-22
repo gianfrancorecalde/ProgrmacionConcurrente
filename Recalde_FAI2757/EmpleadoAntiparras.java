@@ -9,8 +9,13 @@ public class EmpleadoAntiparras extends Persona {
     @Override
     public void run() {
         while(true){
-            pB.entregarAntiparra();
-            pB.recepcionaAntiparra();
+            while(pB.geta() >0){
+                pB.entregarAntiparra();
+                
+            }
+            while(pB.geta() < 1){
+                pB.recepcionaAntiparra();
+            }
         }
     }
 }
