@@ -8,11 +8,12 @@ public class Main {
         Thread encargado = new Thread(new ControlTren(tren), "EncargadoTren");
         vendedor.start();
         encargado.start();
-        Thread [] arr = new Thread[10];
+        /* Thread [] arr = new Thread[10];
         for (int i = 0; i < arr.length; i++) {
             arr[i] = new Thread(new Pasajeros(tren), "Pasajero " +i);
             arr[i].start();
-        }
-        
+        } */
+        new Thread(new Pasajeros(tren), "Pasajero").start();
+
     }
 }

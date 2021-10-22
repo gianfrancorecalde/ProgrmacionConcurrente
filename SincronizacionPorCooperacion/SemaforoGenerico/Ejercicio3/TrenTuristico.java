@@ -17,7 +17,7 @@ public class TrenTuristico {
     public TrenTuristico(int cant){
 
         asientos = new Semaphore(cant,true); // establezco un orden de para que los pasajero que no pudieron viajear en un viaje, lo hagan en el siguiente
-        avisos = new Semaphore(0);
+        avisos = new Semaphore(0,true);
         mutex = new Semaphore(1);
         mutex2 = new Semaphore(1);
         trenLleno = new Semaphore(0);
