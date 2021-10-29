@@ -1,6 +1,6 @@
 package ProgrmacionConcurrente.SincronizacionPorCooperacion.SemaforoGenerico.Ejercicio2;
 
-public class Gato extends Animal implements Runnable{
+public class Gato  implements Runnable{
     
     public Gato(){
         super();    
@@ -17,11 +17,11 @@ public class Gato extends Animal implements Runnable{
 
     @Override
     public void run() {
-        com.comerGato();
+        /* com.comerGato();
         if(com.gatos() > 0){
             comer();
             com.terminarGato();
-        }
+        } */
         
     }
 }

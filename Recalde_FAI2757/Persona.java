@@ -27,6 +27,5 @@ public class Persona implements Runnable{
         bucea();
         pB.devuelveSnorkel();
         pB.devuelveAntiparra();
-        //pB.seRetira();
     }
 }

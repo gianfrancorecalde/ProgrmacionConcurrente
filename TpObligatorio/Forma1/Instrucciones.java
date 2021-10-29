@@ -32,5 +32,5 @@ public class Instrucciones {
 
     public int getW(){
         return w;
-    }
+    } 
 }

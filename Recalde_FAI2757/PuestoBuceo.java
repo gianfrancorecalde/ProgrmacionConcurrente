@@ -99,15 +99,14 @@ public class PuestoBuceo {
         }
         mutexCantSnorkels.release();
     }
-
-    public void recibeSnorkel() {
+    
+    public void recibeSnorkel(){
         try {
             snorkelDisponible.acquire();
-            System.out.println(Thread.currentThread().getName() + " recibe antiparra" );
-        } catch (InterruptedException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+        } catch (Exception e) {
+            //TODO: handle exception
         }
+        System.out.println(Thread.currentThread().getName() + " recibe snorkel" );
         mutexSnorkel.release();
     }
 
@@ -164,29 +163,7 @@ public class PuestoBuceo {
     /* DEVOLUCION DE SNORKELS y ANTIPARRAS */
     /* ---------------------------------------------------------------------------------------------------------------------------------- */
 
-    public void devuelveSnorkel() {
-        try {
-            mutexSnorkel.acquire();
-            System.out.println(Thread.currentThread().getName() + " devuelve el snorkel");
-        } catch (InterruptedException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        empleadoSnorkel.release();
-    }
-
-    public void recepcionaSnorkel() {
-        try {
-            empleadoSnorkel.acquire();
-            System.out.println(Thread.currentThread().getName() + " recibe snorkels ");
-        } catch (InterruptedException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        incrementaCantSnorkel();
-    }
-
-    private void incrementaCantSnorkel(){
+    public void devuelveSnorkel(){
         // incremente la cantidad de snorkel y si no habia ninguno en stock libera permiso snorkelDisponble para q el que necesitaba lo tome
         try {
             mutexCantSnorkels.acquire();
@@ -200,34 +177,11 @@ public class PuestoBuceo {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
+        System.out.println(Thread.currentThread().getName() + " devolvio un snorkel en cesto");
         mutexCantSnorkels.release();
-        System.out.println(Thread.currentThread().getName() + " pasa a devolver antiparra");
-        mutexSnorkel.release();
     }
 
-    public void devuelveAntiparra() {
-        try {
-            mutexAntiparra.acquire();
-            System.out.println(Thread.currentThread().getName() + " devuelve el antiparra");
-        } catch (InterruptedException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        empleadoAntiparra.release();
-    }
-
-    public void recepcionaAntiparra() {
-        try {
-            empleadoAntiparra.acquire();
-            System.out.println(Thread.currentThread().getName() + " recibe la antiparra ");
-        } catch (InterruptedException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        incrementaCantAntiparras();
-    }
-
-    private void incrementaCantAntiparras(){
+    public void devuelveAntiparra(){
         // incremente la cantidad de antiparras y si no habia ninguno en stock libera permiso antiparraDisponible para q el que necesitaba lo tome
         try {
             mutexCantAntiparras.acquire();
@@ -241,19 +195,7 @@ public class PuestoBuceo {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
+        System.out.println(Thread.currentThread().getName() + " devolvio un antiparra en cesto");
         mutexCantAntiparras.release();
-        System.out.println(Thread.currentThread().getName() + " Se retira");
-        mutexAntiparra.release();
     }
-
-    /* public void seRetira() {
-        try {
-            despedir.acquire();
-            System.out.println(Thread.currentThread().getName() + " se retira del puesto" );
-        } catch (InterruptedException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        mutexAntiparra.release();
-    } */
 }
