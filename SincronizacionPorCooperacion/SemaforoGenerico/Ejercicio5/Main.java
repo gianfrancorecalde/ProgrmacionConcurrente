@@ -3,109 +3,165 @@ package ProgrmacionConcurrente.SincronizacionPorCooperacion.SemaforoGenerico.Eje
 import java.util.Random;
 import java.util.concurrent.Semaphore;
 
+import ProgrmacionConcurrente.Synchronized.Ejercicio1.Turno;
+
 public class Main {
 
+    public static void main(String[] args) {
+        Mirador mir = new Mirador(3);
+        new Thread(new Encargado(mir), "Encargado").start();
+        for (int i = 0; i < 5; i++) {
+            new Thread(new Persona(mir), "Persona "+i).start();
+        }
+    }
 }
 
 class Mirador {
 
-    Semaphore escalones;
-    Semaphore tobogan1;
-    Semaphore tobogan2;
-    Semaphore avisoEncargado;
-    Semaphore liberarPersonaParaTobogan1;
-    Semaphore liberarPersonaParaTobogan2;
-    Semaphore mutex;
-    Semaphore avisarPersona;
+    Semaphore escalones; // Simula los escalones disponibles donde esperan las personas 
+    Semaphore tobogan1;  // Semaforo binario para el primer tobogan
+    Semaphore tobogan2;  // Semforo binario para el segundo tobogan
+    Semaphore avisoEncargado;   // Avisar al encargado que hay al menos una persona esperando en la escalera  
+    Semaphore mutexEncargado;   // Simula la exclusion mutua con el encargado 
+    Semaphore avisarPersona;    // Avisa a la persona que puede descender por el tobogan
+
+    int toboganDisponible;  // Varibale mediadora para que el encargado comunique a la persona el tobogan asignado
+    boolean tobogan1Hab;
+    boolean tobogan2Hab;
 
     public Mirador(int escalonesDeEscalera) {
 
         escalones = new Semaphore(escalonesDeEscalera);
         tobogan1 = new Semaphore(1);
-        liberarPersonaParaTobogan1 = new Semaphore(0);
-        liberarPersonaParaTobogan2 = new Semaphore(0);
-        avisarPersona = new Semaphore(0);
         tobogan2 = new Semaphore(1);
+        avisarPersona = new Semaphore(0);
         avisoEncargado = new Semaphore(0);
-        mutex = new Semaphore(2,true);
+        mutexEncargado = new Semaphore(1,true);
+        toboganDisponible = 0;
+        tobogan1Hab = true;
+        tobogan2Hab = true;
 
-    }
+
+    }// Constructor 
 
     public void subirEscalera(){
         try {
             escalones.acquire();
-            mutex.acquire();
-            System.out.println( " Esta en un escalon de la escalera");
+            System.out.println( Thread.currentThread().getName() +  " Esta en un escalon de la escalera");
+            mutexEncargado.acquire();
+            System.out.println( Thread.currentThread().getName() + " Esperando al encargado ");
         } catch (Exception e) {
             //TODO: handle exception
         }
         avisoEncargado.release();
-    }
+    } // en run de persona
 
     public void permitirDescender() {
-
         try {
             avisoEncargado.acquire();
-            if(new Random().nextInt(2) == 1){
-                tobogan1.acquire();
-                liberarPersonaParaTobogan1.release();
-                System.out.println(" Desciende por el tobogan 1");
-            }else{
-                tobogan2.acquire();
-                liberarPersonaParaTobogan2.release();
-                System.out.println(" Desciende por el tobogan 2");
-            }
+                if(tobogan1Hab){
+                    toboganDisponible = 1;
+                }else{
+                    if (tobogan2Hab) {
+                        toboganDisponible = 2;
+                    } else {
+                        if (new Random().nextInt(1)+1 == 1) {
+                            toboganDisponible = 1;
+                        } else {
+                            toboganDisponible = 2;
+                        }
+                    } 
+                }
+                avisarPersona.release();
         } catch (Exception e) {
             // TODO: handle exception
         }
-    }
+    }// en run de encargado
     
-
-    public void seOcupaTobogan1(){
-        try {
-            liberarPersonaParaTobogan1.acquire(); 
-        } catch (Exception e) {
-            //TODO: handle exception
-        }
-        System.out.println("una persona esta descendiendo por ");
-    }
-
-    public void seDesocupaTobogan1(){
-        System.out.println(" la persona termino su descenso");
-        tobogan1.release();
-        avisarPersona.release();
-    }
-
-    public void salidaTobogan2(){
-        System.out.println(" termino de descender por el tobogan 2");
-        tobogan2.release();
-        mutex.release();
-    }
-
-    public void saleDelTobogan(){
+    public int metodoX(){
         try {
             avisarPersona.acquire();
         } catch (Exception e) {
             //TODO: handle exception
         }
-        System.out.println(" se retira del tobogan");
-        mutex.release();
+        escalones.release();
+        System.out.println(Thread.currentThread().getName() + " le toca el tobogan "+toboganDisponible);
+        return toboganDisponible;
     }
-}
+
+    public void descendiendoPorTobogan1(){
+        try {
+            tobogan1.acquire();
+        } catch (Exception e) {
+            //TODO: handle exception
+        }
+        tobogan1Hab = false;
+        toboganDisponible = 0;
+        System.out.println(Thread.currentThread().getName() + " descendiendo por tobogan 1");
+        mutexEncargado.release();
+    }// en run de persona
+
+    public void descendiendoPorTobogan2(){
+        try {
+            tobogan2.acquire();
+            tobogan2Hab = false;
+        } catch (Exception e) {
+            //TODO: handle exception
+        }
+        toboganDisponible = 0;
+        System.out.println(Thread.currentThread().getName() +" descendiendo por tobogan 2");
+        mutexEncargado.release();
+    }// en run de persona
+
+    public void salidaTobogan(int toboganAsignado){
+        if(toboganAsignado == 1){
+            System.out.println(Thread.currentThread().getName() + " termino su descenso por el tobogan 1");
+            tobogan1Hab = true;
+            tobogan1.release();
+        }else{
+            if(toboganAsignado == 2){
+                System.out.println(Thread.currentThread().getName() + " termino su descenso por el tobogan 2");
+                tobogan2Hab = true;
+                tobogan2.release();
+            }
+        }
+    }// en run de persona
+
+} // clase Mirador (RECURSO COMPARTIDO)
 
 class Persona implements Runnable{
     static Mirador mir;
+    int toboganAsignado;
 
     public Persona(Mirador m){
         mir = m;
+        toboganAsignado = 0;
+    }
+
+    private void descendiendo(){
+        try {
+            System.out.println("Descendiendo");
+            Thread.sleep(1000);
+        } catch (Exception e) {
+            //TODO: handle exception
+        }
     }
 
     @Override
     public void run() {
         mir.subirEscalera();
-        mir.saleDelTobogan();
+        toboganAsignado =  mir.metodoX();
+        if(toboganAsignado == 1){
+            mir.descendiendoPorTobogan1();
+        }else{
+            if (toboganAsignado == 2) {
+                mir.descendiendoPorTobogan2();
+            }
+        }
+        descendiendo();
+        mir.salidaTobogan(toboganAsignado);
     }
-}
+}// clase Persona
 
 class Encargado extends Persona implements Runnable {
 
@@ -116,21 +172,8 @@ class Encargado extends Persona implements Runnable {
 
     @Override
     public void run() {
-        mir.permitirDescender();
+        while(true){
+            mir.permitirDescender();
+        }
     }
-}
-
-class Tobogan implements Runnable{
-    
-    Mirador mir;
-
-    public Tobogan(Mirador m){
-        mir = m;
-    }
-
-    public void run() {
-        mir.toboganDisponible();
-        mir.toboganOcupado();
-
-    }
-}
+}// Clase encargado
