@@ -5,11 +5,11 @@ import java.util.concurrent.Semaphore;
 public class Main {
     
     public static void main(String[] args) {
-        
-        new Thread(new Torre(), "Torre de control").start();
+        Pista p = new Pista(2, 6);
+        new Thread(new Torre(p), "Torre de control").start();
         for (int i = 0; i < 6; i++) {
-            new Thread(new AvionAterrizar(), "Avion Aterrizar "+i).start();
-            new Thread(new AvionDespegar(), "Avion Despegar "+i).start();
+            new Thread(new AvionAterrizar(p), "Avion Aterrizar "+i).start();
+            new Thread(new AvionDespegar(p), "Avion Despegar "+i).start();
         }
     }
 
@@ -22,34 +22,24 @@ class Pista{
     Semaphore mutexPista;
     Semaphore control;
     Semaphore despegue;
-    Semaphore mutexCantDespeges;
-    Semaphore mutexCantAterrizaje;
-    //Semaphore esperar;
+  
 
     // Otras varibles
     int aterrizajes;
-    boolean prioridadDespegue;
     int aterrizajesPermitidos;
-    int esperandoDespegar;
-    int esperandoAterrizaje;
+    int aterrizajesEsperado;
     
-    public Pista(int cantPermisos){
+    public Pista(int cantPermisos, int cantAterrizajes){
         // Semaphore
         aterrizar = new Semaphore(aterrizajesPermitidos);
         mutexPista = new Semaphore(1);
         control = new Semaphore(1);
         despegue = new Semaphore(0);
-        mutexCantDespeges = new Semaphore(1);
-        mutexCantAterrizaje = new Semaphore(1);
-        //esperar = new Semaphore(0);
-
+        
         // Otras variables
         aterrizajes = 0;
         aterrizajesPermitidos = cantPermisos;
-        prioridadDespegue = false;
-        esperandoDespegar = 0;
-        esperandoAterrizaje = 0;
-        
+        aterrizajesEsperado = cantAterrizajes;
     }
 
     public void supervisar(){
@@ -58,19 +48,17 @@ class Pista{
         } catch (Exception e) {
             //TODO: handle exception
         }
-        if (prioridadDespegue && esperandoDespegar > 0 && esperandoAterrizaje <1) {
-            System.out.println(" No hay mas avioens que quieran aterrizar");
+        if(aterrizajes == aterrizajesPermitidos){
+            System.out.println(Thread.currentThread().getName() + " libera permiso de despegue");
+            aterrizajes = 0;
             despegue.release();
-        } else {
-            if(aterrizajes == aterrizajesPermitidos){
-                System.out.println(Thread.currentThread().getName() + " libera permiso de despegue");
-                aterrizajes = 0;
+        }else{
+            if(aterrizajesEsperado==0){
+                System.out.println("No hay mas aviones que quieran aterrizar");
                 despegue.release();
             }else{
-                if(aterrizajes == 0){
-                    System.out.println(Thread.currentThread().getName() +" libera los permisos de aterrizaje");
-                    aterrizar.release(aterrizajesPermitidos);
-                }
+                System.out.println(Thread.currentThread().getName() +" libera los permisos de aterrizaje");
+                aterrizar.release(aterrizajesPermitidos);
             }
         }
         
@@ -82,12 +70,10 @@ class Pista{
     public void intentaAterrizar(){
         try {
             System.out.println(Thread.currentThread().getName() +" Quiere aterrizar");
-            mutexCantAterrizaje.acquire();
-            esperandoAterrizaje++;
-            mutexCantAterrizaje.release();
             aterrizar.acquire();
             mutexPista.acquire();
-            aterrizajes++; 
+            aterrizajes++;
+            aterrizajesEsperado--;
             
         } catch (Exception e) {
             //TODO: handle exception
@@ -96,26 +82,21 @@ class Pista{
     }
     
     public void finalizaAterrizaje(){
-        try {
-            mutexCantAterrizaje.acquire();
-            esperandoAterrizaje--;
-            mutexCantAterrizaje.release();
-        } catch (Exception e) {
-            //TODO: handle exception
+        
+        if(aterrizajes == aterrizajesPermitidos){
+            System.out.println( Thread.currentThread().getName() +" avisa a control que es el ultimo en aterrizar");
+            control.release();
+        }else{
+            if(aterrizajesEsperado == 0){
+                System.out.println("No hay mas aviones que quieran aterrizar");
+                control.release();
+            }
         }
-        System.out.println(esperandoAterrizaje);
-        System.out.println( Thread.currentThread().getName() +" avisa a control que es el ultimo en aterrizar");
-        prioridadDespegue = true;
-        control.release();
         mutexPista.release();
     }
     
     public void intentaDespegar(){
         try {
-            System.out.println(Thread.currentThread().getName() +" Quiere despegar");
-            mutexCantDespeges.acquire();
-            esperandoDespegar++;
-            mutexCantDespeges.release();
             despegue.acquire();
         } catch (Exception e) {
             //TODO: handle exception
@@ -124,13 +105,6 @@ class Pista{
     }
 
     public void finalizaDespegue(){
-        try {
-            mutexCantDespeges.acquire();
-            esperandoDespegar--;
-            mutexCantDespeges.release();
-        } catch (Exception e) {
-            //TODO: handle exception
-        }
         System.out.println(Thread.currentThread().getName() + " Avisa a control que ya despego");
         control.release();
     }
@@ -138,14 +112,16 @@ class Pista{
 
 class Avion {
     
-    static Pista mutexPista = new Pista(2);
-    public Avion (){} 
+    Pista pista;
+    public Avion (Pista p){
+        pista = p;
+    } 
 }
 
 class AvionDespegar extends Avion implements Runnable{
 
-    public AvionDespegar(){
-        super();
+    public AvionDespegar(Pista p){
+        super(p);
     }
 
     void despegando(){
@@ -159,16 +135,16 @@ class AvionDespegar extends Avion implements Runnable{
 
     @Override
     public void run() {
-        mutexPista.intentaDespegar();
+        pista.intentaDespegar();
         despegando();
-        mutexPista.finalizaDespegue();
+        pista.finalizaDespegue();
     }
 }
 
 class AvionAterrizar extends Avion implements Runnable{
 
-    public AvionAterrizar(){
-        super();
+    public AvionAterrizar(Pista p){
+        super(p);
     }
 
     void aterrizando(){
@@ -182,22 +158,22 @@ class AvionAterrizar extends Avion implements Runnable{
 
     @Override
     public void run() {
-        mutexPista.intentaAterrizar();
+        pista.intentaAterrizar();
         aterrizando();
-        mutexPista.finalizaAterrizaje();
+        pista.finalizaAterrizaje();
     }
 }
 
 class Torre extends Avion implements Runnable{
     
-    public Torre(){
-        super();
+    public Torre(Pista p){
+        super(p);
     }
 
     @Override
     public void run() {
         while(true){
-            mutexPista.supervisar();
+            pista.supervisar();
         }
     }
 }

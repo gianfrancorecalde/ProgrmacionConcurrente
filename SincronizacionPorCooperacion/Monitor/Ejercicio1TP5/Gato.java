@@ -1,4 +1,4 @@
-package ProgrmacionConcurrente.SincronizacionPorCooperacion.Monitor;
+package ProgrmacionConcurrente.SincronizacionPorCooperacion.Monitor.Ejercicio1TP5;
 
 public class Gato implements Runnable{
     
