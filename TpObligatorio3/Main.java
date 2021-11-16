@@ -1,6 +1,9 @@
 package ProgrmacionConcurrente.TpObligatorio3;
 
 import java.util.concurrent.Semaphore;
+import java.util.concurrent.locks.Condition;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 
 public class Main {
 
@@ -25,59 +28,135 @@ public class Main {
 
 class Carpinteria {
 
-    private final int CANTIDAD; // Cantidad de muebles a fabricar
-    private int producidos = 0;
-    private Semaphore mutex_ensamblado; // Semaforo para que el ensamblador que lo tome trabaje con exclusividad
-    private Semaphore sem_parte_1; // Semaforo para carpintero que fabricar la parte 1
-    private Semaphore sem_parte_2; // Semaforo para carpintero que fabricar la parte 2
-    private Semaphore sem_parte_3; // Semaforo para carpintero que fabricar la parte 3
-    private Semaphore sem_ensamblado;
+    Lock cerrojo = new ReentrantLock();
+    Condition esperandoPartes;
+    Condition esperandoEnsamblado;
+    Condition esperandoDisponibilidad;
+    Condition esperandoPart1Hab;
+    Condition esperandoPart2Hab;
+    Condition esperandoPart3Hab;
+    Condition esperandoHabEnsambladores;
+    Condition esperandoVolverAlTrabajoParte1;
+    Condition esperandoVolverAlTrabajoParte2;
+    Condition esperandoVolverAlTrabajoParte3;
+    Condition esperandoTrabajar;
+
+    int cant;
+    int ensambladorDisponible;
+    boolean part1;
+    boolean part2;
+    boolean part3;
 
     public Carpinteria(int CANTIDAD) {
-        this.CANTIDAD = CANTIDAD;
-        this.mutex_ensamblado = new Semaphore(1);
-        this.sem_parte_1 = new Semaphore(1);
-        this.sem_parte_2 = new Semaphore(1);
-        this.sem_parte_3 = new Semaphore(1);
-        this.sem_ensamblado = new Semaphore(0);
+        cant = CANTIDAD;
+        esperandoEnsamblado = cerrojo.newCondition();
+        esperandoEnsamblado = cerrojo.newCondition();
+        
+        ensambladorDisponible = 0;
     }
 
-    public void haciendo_parte_1() throws InterruptedException {
-        sem_parte_1.acquire(1);
-        System.out.println(
-                Thread.currentThread().getName() + "------- 🛠 Le entrega una parte del tipo 1 al ensamblador");
-        sem_ensamblado.release();
-    }
-
-    public void haciendo_parte_2() throws InterruptedException {
-        sem_parte_2.acquire(1);
-        System.out.println(
-                Thread.currentThread().getName() + "------- 🛠 Le entrega una parte del tipo 1 al ensamblador");
-        sem_ensamblado.release();
-    }
-
-    public void haciendo_parte_3() throws InterruptedException {
-        sem_parte_3.acquire(1);
-        System.out.println(Thread.currentThread().getName() + "------- 🛠 Estoy haciendo parte 3");
-        sem_ensamblado.release();
-    }
-
-    public void ensamblando_partes() throws InterruptedException {
-        if (this.producidos != this.CANTIDAD) {
-            // COMIENZO DE ZONA CRITICA
-            mutex_ensamblado.acquire();
-            sem_ensamblado.acquire(3);
-
-            System.out.println(Thread.currentThread().getName() + "-------Estoy ensamblando");
-            this.producidos++;
-            System.out.println("📦 se producieron: " + this.producidos + " de " + this.CANTIDAD);
-
-            sem_parte_1.release();
-            sem_parte_2.release();
-            sem_parte_3.release();
-            mutex_ensamblado.release();
-            // FIN DE ZONA CRITICA
+    public int entregarParte1() throws InterruptedException {
+        cerrojo.lock();
+        try {
+            while (ensambladorDisponible == 0) {
+                esperandoHabEnsambladores.await();
+            }
+            while (part1) {
+                esperandoPart1Hab.await();
+            }
+        } catch (Exception e) {
+            //TODO: handle exception
         }
+        part1 = true;
+        esperandoPartes.signal();
+        System.out.println(Thread.currentThread().getName() + "------- 🛠 Le entrega una parte del tipo 1 al ensamblador");
+        cerrojo.unlock();
+        return ensambladorDisponible;
+    }
+
+    public void volverAlTrabajoParte1(int ensambladorAsignado) throws InterruptedException{
+        esperandoTrabajar.await();
+        while (ensambladorDisponible != ensambladorAsignado) {
+            esperandoVolverAlTrabajoParte1.await();
+        }
+    }
+
+    public int entregarParte2() throws InterruptedException {
+        cerrojo.lock();
+        try {
+            while (ensambladorDisponible == 0) {
+                esperandoHabEnsambladores.await();
+            }
+            while (part2) {
+                esperandoPart2Hab.await();
+            }
+        } catch (Exception e) {
+            //TODO: handle exception
+        }
+        part2 = true;
+        esperandoPartes.signal();
+        System.out.println(Thread.currentThread().getName() + "------- 🛠 Le entrega una parte del tipo 2 al ensamblador");
+        cerrojo.unlock();
+        return ensambladorDisponible;
+        
+    }
+
+    public int entregarParte3() throws InterruptedException {
+        
+        cerrojo.lock();
+        try {
+            while (ensambladorDisponible == 0) {
+                esperandoHabEnsambladores.await();
+            }
+            while (part3) {
+                esperandoPart3Hab.await();
+            }
+        } catch (Exception e) {
+            //TODO: handle exception
+        }
+        part3 = true;
+        esperandoPartes.signal();
+        System.out.println(Thread.currentThread().getName() + "------- 🛠 Le entrega una parte del tipo 3 al ensamblador");
+        cerrojo.unlock();
+        return ensambladorDisponible;
+       
+    }
+
+    public void ensamblando_partes(int id) throws InterruptedException {
+        cerrojo.lock();
+            while(ensambladorDisponible != 0){
+                esperandoDisponibilidad.await();
+            }
+            ensambladorDisponible = id;
+            esperandoHabEnsambladores.signalAll();
+            
+            while(!part1 && !part2 && !part3){
+                esperandoPartes.await();
+            }
+            part1 = false;
+            esperandoPart1Hab.signalAll();
+            part2 = false;
+            esperandoPart2Hab.signalAll();
+            part3 = false;
+            esperandoPart3Hab.signalAll();
+            
+            ensambladorDisponible = 0;
+            esperandoDisponibilidad.signalAll();
+        System.out.println(" esta ensamblando");
+        cerrojo.unlock();
+    }
+
+    public void avisarACarpinteros(int id) throws InterruptedException{
+        cerrojo.lock();
+        while(ensambladorDisponible != 0){
+            esperandoDisponibilidad.await();
+        }
+        ensambladorDisponible = id;
+        esperandoTrabajar.signalAll();
+        esperandoPart1Hab.signalAll();
+        esperandoPart2Hab.signalAll();
+        esperandoPart3Hab.signalAll();
+        cerrojo.unlock();
     }
 }
 
@@ -85,15 +164,18 @@ class Carpintero implements Runnable {
 
     Carpinteria carp;
     int tipoParte;
+    int ensambladorAsignado; 
 
     public Carpintero(Carpinteria c, int tipo) {
         tipoParte = tipo;
         carp = c;
+        ensambladorAsignado = 0;
     }
 
     @Override
     public void run() {
         while (true) {
+            ensambladorAsignado = carp.entregarParte();
             System.out.println(Thread.currentThread().getName() + " esta fabricando parte de tipo " + tipoParte);
 
         }
@@ -103,9 +185,11 @@ class Carpintero implements Runnable {
 class Ensamblador implements Runnable {
 
     Carpinteria carp;
+    int id;
 
-    public Ensamblador(Carpinteria c) {
+    public Ensamblador(Carpinteria c, int id) {
         carp = c;
+        this.id = id;
     }
 
     @Override
