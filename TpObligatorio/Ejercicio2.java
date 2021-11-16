@@ -15,7 +15,7 @@ public class Ejercicio2 {
     
     
     
-    
+}
     class EmbotelladorB implements Runnable {
     
         private PlantaB planta;
@@ -115,4 +115,4 @@ public class Ejercicio2 {
     
     }
 
-}
+
