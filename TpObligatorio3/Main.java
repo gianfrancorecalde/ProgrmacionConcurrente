@@ -175,7 +175,6 @@ class Carpintero implements Runnable {
     @Override
     public void run() {
         while (true) {
-            ensambladorAsignado = carp.entregarParte();
             System.out.println(Thread.currentThread().getName() + " esta fabricando parte de tipo " + tipoParte);
 
         }
@@ -195,12 +194,7 @@ class Ensamblador implements Runnable {
     @Override
     public void run() {
         while (true) {
-            try {
-                carp.ensamblando_partes();
-            } catch (InterruptedException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
+            
         }
     }
 }
