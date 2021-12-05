@@ -11,7 +11,7 @@ public class PizzeroVegetariana implements Runnable{
 
     private void fabricandoVegetariana(){
         try {
-            System.out.println(Thread.currentThread().getName() + " fabricando Napolitana");
+            System.out.println(Thread.currentThread().getName() + " fabricando Vegetariana"); // ERROR CARTEL EQUIVOCADO (NAPOLITANA -> VEGETARIANA)
             Thread.sleep(500);
         } catch (Exception e) {
             //TODO: handle exception
