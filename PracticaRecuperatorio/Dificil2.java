@@ -19,16 +19,25 @@ class Fila {
 
     private int turnoBailarFila1;
     private int turnoBailarFila2;
+    private int cantFila1;
+    private int cantFila2;
+    private boolean salio1;
+    private boolean salio2;
 
     public Fila(){
         turnoBailarFila1 = 0;
         turnoBailarFila2 = 0;
+        cantFila1 = 0;
+        cantFila2 = 0;
+        salio1 = true;
+        salio2 = true;
     }
 
     public synchronized void ingresarSoltero(int fila){
 
         if(new Random().nextInt(2) == 0 || fila == 1){
             // fila 1
+            cantFila1 ++;
             try {
                 while (turnoBailarFila1 == 0) {
                     this.wait();
@@ -36,9 +45,13 @@ class Fila {
             } catch (Exception e) {
                 //TODO: handle exception
             }
-            turnoBailarFila1--;
+            turnoBailarFila1=0;
+            cantFila1--;
+            salio1 = true;
+            System.out.println(Thread.currentThread().getName() + " sale a bailar");
         }else{
             // fila 2
+            cantFila2++;
             try {
                 while (turnoBailarFila2 == 0) {
                     this.wait();
@@ -46,7 +59,10 @@ class Fila {
             } catch (Exception e) {
                 //TODO: handle exception
             }
-            turnoBailarFila2--;
+            turnoBailarFila2=0;
+            cantFila2--;
+            salio2 = true;
+            System.out.println(Thread.currentThread().getName() + " sale a bailar");
         }
     }
 
@@ -57,9 +73,13 @@ class Fila {
     }
 
     public synchronized void largarTurnos(){
-        turnoBailarFila1 = 1;
-        turnoBailarFila2 = 1;
-        this.notifyAll();
+        if(cantFila1 >0 && cantFila2 > 0 && salio1 && salio2){
+            turnoBailarFila1 = 1;
+            turnoBailarFila2 = 1;
+            this.notifyAll();
+            salio1 = false;
+            salio2 = false;
+        }
     }
 }
 
@@ -89,7 +109,7 @@ class Soltero implements Runnable {
         // TODO Auto-generated method stub
         System.out.println(Thread.currentThread().getName() + " ingresa al hotel");
         fila.ingresarSoltero(filaAsignada);
-        bailar();
+        //bailar();
     }
 }
 
@@ -104,6 +124,7 @@ class Pareja implements Runnable {
     @Override
     public void run() {
         // TODO Auto-generated method stub
+        System.out.println(Thread.currentThread().getName() + " ingresa al hotel");
         fila.ingresarPareja();
     }
 }
@@ -118,7 +139,7 @@ class Control implements Runnable {
 
     private void esperar(){
         try {
-            Thread.sleep(1000);
+            Thread.sleep(100);
         } catch (Exception e) {
             //TODO: handle exception
         }
@@ -129,6 +150,7 @@ class Control implements Runnable {
         // TODO Auto-generated method stub
         while (true) {
             fila.largarTurnos();
+            System.out.println(Thread.currentThread().getName() + " se largaron turnos");
             esperar();
         }
     }
